@@ -3,11 +3,11 @@ import IconArrow from "./IconArrow.vue";
 export default {
   title: "Howie/Icon",
   component: IconArrow,
-  argTypes: {
-    direction: {
-      control: { type: "select", options: ["left", "top", "right", "bottom"] },
-    },
-  },
+  // argTypes: {
+  //   direction: {
+  //     control: { type: "select", options: ["left", "top", "right", "bottom"] },
+  //   },
+  // },
 };
 
 const TemplateArrow = (args, { argTypes }) => ({
