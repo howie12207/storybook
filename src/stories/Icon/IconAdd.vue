@@ -27,7 +27,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon_add {
   display: inline-block;
   position: relative;
@@ -36,23 +36,23 @@ export default Vue.extend({
   height: var(--addSize);
   border: 2px solid var(--addColor);
   border-radius: 50%;
-  &:after,
-  &:before {
-    content: "";
-    position: absolute;
-    box-sizing: border-box;
-    width: calc(var(--addSize) / 2);
-    height: 2px;
-    background: var(--addColor);
-    border-radius: 5px;
-    top: calc(var(--addSize) / 2 - 3px);
-    left: calc(var(--addSize) / 4 - 2px);
-  }
-  &:after {
-    width: 2px;
-    height: calc(var(--addSize) / 2);
-    top: calc(var(--addSize) / 4 - 2px);
-    left: calc(var(--addSize) / 2 - 3px);
-  }
+}
+.icon_add:after,
+.icon_add:before {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  width: calc(var(--addSize) / 2);
+  height: 2px;
+  background: var(--addColor);
+  border-radius: 5px;
+  top: calc(var(--addSize) / 2 - 3px);
+  left: calc(var(--addSize) / 4 - 2px);
+}
+.icon_add:after {
+  width: 2px;
+  height: calc(var(--addSize) / 2);
+  top: calc(var(--addSize) / 4 - 2px);
+  left: calc(var(--addSize) / 2 - 3px);
 }
 </style>

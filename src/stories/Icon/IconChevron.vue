@@ -39,33 +39,33 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon_chevron {
   display: inline-block;
   position: relative;
   width: var(--chevronSize);
   height: var(--chevronSize);
   box-sizing: border-box;
-  &:after {
-    content: "";
-    position: absolute;
-    box-sizing: border-box;
-    border: solid var(--chevronColor);
-    border-width: 0 var(--chevronLineWidth) var(--chevronLineWidth) 0;
-    border-bottom-right-radius: 2px;
-    padding: calc(calc(var(--chevronSize) - var(--chevronLineWidth)) / 3);
-    top: 50%;
-    left: 50%;
-    transform: translate(-25%, -50%) rotate(135deg);
-  }
-  &.top:after {
-    transform: translate(-50%, -25%) rotate(-135deg);
-  }
-  &.right:after {
-    transform: translate(-75%, -50%) rotate(-45deg);
-  }
-  &.bottom:after {
-    transform: translate(-50%, -75%) rotate(45deg);
-  }
+}
+.icon_chevron:after {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  border: solid var(--chevronColor);
+  border-width: 0 var(--chevronLineWidth) var(--chevronLineWidth) 0;
+  border-bottom-right-radius: 2px;
+  padding: calc(calc(var(--chevronSize) - var(--chevronLineWidth)) / 3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-25%, -50%) rotate(135deg);
+}
+.icon_chevron.top:after {
+  transform: translate(-50%, -25%) rotate(-135deg);
+}
+.icon_chevron.right:after {
+  transform: translate(-75%, -50%) rotate(-45deg);
+}
+.icon_chevron.bottom:after {
+  transform: translate(-50%, -75%) rotate(45deg);
 }
 </style>

@@ -37,7 +37,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 * {
   box-sizing: border-box;
 }
@@ -50,18 +50,18 @@ export default Vue.extend({
   cursor: pointer;
   border-radius: 4px;
   transition: 0.4s;
-  &:hover {
-    background-color: var(--mainColor);
-    color: #fff;
-  }
-  &.disabled {
-    border: 1px solid var(--disabledColor);
-    color: var(--disabledColor);
-    cursor: not-allowed;
-    &:hover {
-      background-color: initial;
-      color: var(--disabledColor);
-    }
-  }
+}
+.base_button:hover {
+  background-color: var(--mainColor);
+  color: #fff;
+}
+.base_button.disabled {
+  border: 1px solid var(--disabledColor);
+  color: var(--disabledColor);
+  cursor: not-allowed;
+}
+.base_button.disabled:hover {
+  background-color: initial;
+  color: var(--disabledColor);
 }
 </style>

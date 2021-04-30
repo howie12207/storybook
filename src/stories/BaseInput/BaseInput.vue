@@ -205,7 +205,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 * {
   box-sizing: border-box;
 }
@@ -219,78 +219,82 @@ export default Vue.extend({
   flex-wrap: wrap;
   font-size: 14px;
   color: var(--fontColor);
-  &.multi_line {
-    display: block;
-  }
-  .top {
-    height: 40px;
-    line-height: 40px;
-  }
-  .input_label {
-    min-width: 80px;
-  }
-  .input_block {
-    position: relative;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    .input_content {
-      width: 100%;
-      height: 100%;
-      padding: 0 32px 0 16px;
-      border: 1px solid var(--borderColor);
-      border-radius: 4px;
-      transition: 0.3s;
-      outline: none;
-      &:focus {
-        border: 1px solid var(--focusColor);
-      }
-      &.error {
-        border: 1px solid var(--errorColor);
-      }
-    }
-    .x_icon {
-      position: absolute;
-      right: 8px;
-      top: 10px;
-      transform: scale(var(--clearSize));
-      width: 22px;
-      height: 22px;
-      border: 1px solid var(--fontColor);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: 0.4s;
-      opacity: 0.7;
-      &:hover {
-        opacity: 1;
-      }
-      &::after,
-      &::before {
-        content: "";
-        box-sizing: border-box;
-        position: absolute;
-        width: 12px;
-        height: 1px;
-        background: var(--fontColor);
-        transform: rotate(45deg);
-        border-radius: 5px;
-        top: 9px;
-        left: 4px;
-      }
-      &::after {
-        transform: rotate(-45deg);
-      }
-    }
-  }
-  .error_message {
-    height: 12px;
-    font-size: 12px;
-    margin: 8px 0;
-    color: var(--errorColor);
-  }
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+}
+.base_input.multi_line {
+  display: block;
+}
+.base_input .top {
+  height: 40px;
+  line-height: 40px;
+}
+.base_input .input_label {
+  min-width: 80px;
+}
+.base_input .input_block {
+  position: relative;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.base_input .input_block .input_content {
+  width: 100%;
+  height: 100%;
+  padding: 0 32px 0 16px;
+  border: 1px solid var(--borderColor);
+  border-radius: 4px;
+  transition: 0.3s;
+  outline: none;
+}
+.base_input .input_block .input_content:focus {
+  border: 1px solid var(--focusColor);
+}
+.base_input .input_block .input_content.error {
+  border: 1px solid var(--errorColor);
+}
+
+.base_input .input_block .x_icon {
+  position: absolute;
+  right: 8px;
+  top: 10px;
+  transform: scale(var(--clearSize));
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--fontColor);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.4s;
+  opacity: 0.7;
+}
+.base_input .input_block .x_icon:hover {
+  opacity: 1;
+}
+.base_input .input_block .x_icon::after,
+.base_input .input_block .x_icon::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  width: 12px;
+  height: 1px;
+  background: var(--fontColor);
+  transform: rotate(45deg);
+  border-radius: 5px;
+  top: 9px;
+  left: 4px;
+}
+.base_input .input_block .x_icon::after {
+  transform: rotate(-45deg);
+}
+
+.base_input .error_message {
+  height: 12px;
+  font-size: 12px;
+  margin: 8px 0;
+  color: var(--errorColor);
+}
+
+.base_input input::-webkit-outer-spin-button,
+.base_input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

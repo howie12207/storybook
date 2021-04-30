@@ -36,7 +36,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 * {
-  // box-sizing: border-box;
+  box-sizing: border-box;
 }
 .shine_button {
   display: inline-block;
@@ -49,45 +49,43 @@ export default Vue.extend({
   color: var(--defaultColor);
   transition: 0.4s;
   cursor: pointer;
+}
 
-  &:before,
-  &:after {
-    content: "";
-    border-style: solid;
-    position: absolute;
-    border-color: var(--mainColor);
-    z-index: 1;
-    border-radius: 3px;
-    box-sizing: content-box;
-    transition: 0.4s;
-  }
+.shine_button:before,
+.shine_button:after {
+  content: "";
+  border-style: solid;
+  position: absolute;
+  border-color: var(--mainColor);
+  z-index: 1;
+  border-radius: 3px;
+  box-sizing: content-box;
+  transition: 0.4s;
+}
+.shine_button:before {
+  width: 0;
+  height: 100%;
+  border-width: 1px 0 1px 0;
+  top: -1px;
+  left: 0;
+  transition-delay: 0.05s;
+}
+.shine_button:after {
+  width: 100%;
+  height: 0;
+  border-width: 0 1px 0 1px;
+  top: 0;
+  left: -1px;
+}
 
-  &:before {
-    width: 0;
-    height: 100%;
-    border-width: 1px 0 1px 0;
-    top: -1px;
-    left: 0;
-    transition-delay: 0.05s;
-  }
+.shine_button:hover {
+  color: var(--mainColor);
+}
+.shine_button:hover:before {
+  width: 100%;
+}
 
-  &:after {
-    width: 100%;
-    height: 0;
-    border-width: 0 1px 0 1px;
-    top: 0;
-    left: -1px;
-  }
-
-  &:hover {
-    color: var(--mainColor);
-    &:before {
-      width: 100%;
-    }
-
-    &:after {
-      height: 100%;
-    }
-  }
+.shine_button:hover:after {
+  height: 100%;
 }
 </style>

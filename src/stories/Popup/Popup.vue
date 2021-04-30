@@ -27,7 +27,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 * {
   box-sizing: border-box;
 }
@@ -41,46 +41,46 @@ export default Vue.extend({
   height: 100vh;
   background-color: rgba(31, 41, 55, 0.7);
   z-index: 101;
-  .popup_content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-height: 50px;
-    max-height: 90%;
-    overflow: auto;
-    background-color: #f3f4f6;
-    border-radius: 5px;
-    .icon_x {
-      position: absolute;
-      z-index: 102;
-      top: 8px;
-      right: 8px;
-      display: inline-block;
-      transform: scale(var(--xSize));
-      width: 22px;
-      height: 22px;
-      border: 2px solid var(--xColor);
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .icon_x::after,
-    .icon_x::before {
-      content: "";
-      display: block;
-      box-sizing: border-box;
-      position: absolute;
-      width: 12px;
-      height: 2px;
-      background: var(--xColor);
-      transform: rotate(45deg);
-      border-radius: 5px;
-      top: 8px;
-      left: 3px;
-    }
-    .icon_x::after {
-      transform: rotate(-45deg);
-    }
-  }
+}
+.popup_mask .popup_content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 50px;
+  max-height: 90%;
+  overflow: auto;
+  background-color: #f3f4f6;
+  border-radius: 5px;
+}
+.popup_mask .popup_content .icon_x {
+  position: absolute;
+  z-index: 102;
+  top: 8px;
+  right: 8px;
+  display: inline-block;
+  transform: scale(var(--xSize));
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--xColor);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.popup_mask .popup_content .icon_x::after,
+.popup_mask .popup_content .icon_x::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  background: var(--xColor);
+  transform: rotate(45deg);
+  border-radius: 5px;
+  top: 8px;
+  left: 3px;
+}
+.popup_mask .popup_content .icon_x::after {
+  transform: rotate(-45deg);
 }
 </style>

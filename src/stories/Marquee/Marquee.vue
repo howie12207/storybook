@@ -54,7 +54,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 * {
   box-sizing: border-box;
 }
@@ -65,20 +65,23 @@ export default Vue.extend({
   overflow: hidden;
   white-space: nowrap;
   color: var(--textColor);
-  .content {
-    width: fit-content;
-    position: relative;
-    transform: translateX(var(--moveInitial));
-    animation: marquee var(--scrollDuration) linear infinite;
-    animation-play-state: running;
-    .item {
-      padding: 0 2vw;
-    }
-  }
-  &.stop:hover .content {
-    animation-play-state: paused;
-  }
 }
+
+.marquee .content {
+  width: fit-content;
+  position: relative;
+  transform: translateX(var(--moveInitial));
+  animation: marquee var(--scrollDuration) linear infinite;
+  animation-play-state: running;
+}
+.marquee .content .item {
+  padding: 0 2vw;
+}
+
+.marquee.stop:hover .content {
+  animation-play-state: paused;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(var(--moveInitial));

@@ -27,7 +27,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon_x {
   display: inline-block;
   position: relative;
@@ -36,21 +36,21 @@ export default Vue.extend({
   height: var(--xSize);
   border: 2px solid var(--xColor);
   border-radius: 50%;
-  &:after,
-  &:before {
-    content: "";
-    box-sizing: border-box;
-    position: absolute;
-    width: calc(var(--xSize) - 10px);
-    height: 2px;
-    background: var(--xColor);
-    transform: rotate(45deg);
-    border-radius: 5px;
-    top: calc(var(--xSize) / 2 - 3px);
-    left: 3px;
-  }
-  &:after {
-    transform: rotate(-45deg);
-  }
+}
+.icon_x:after,
+.icon_x:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  width: calc(var(--xSize) - 10px);
+  height: 2px;
+  background: var(--xColor);
+  transform: rotate(45deg);
+  border-radius: 5px;
+  top: calc(var(--xSize) / 2 - 3px);
+  left: 3px;
+}
+.icon_x:after {
+  transform: rotate(-45deg);
 }
 </style>

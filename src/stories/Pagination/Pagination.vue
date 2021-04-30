@@ -235,144 +235,152 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 * {
   box-sizing: border-box;
 }
 .pagination {
   display: flex;
   justify-content: center;
-  .total {
-    line-height: 28px;
-    margin-right: 16px;
-    font-size: 14px;
-  }
-  .select_size {
-    border: 1px solid #d1d5db;
-    outline: none;
-    padding: 0 16px 0 8px;
-    margin-right: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .pager {
-    display: inline-block;
-    list-style: none;
-    user-select: none;
-    vertical-align: top;
-    font-size: 0;
-    padding: 0;
-    margin: 0;
-    li {
-      display: inline-block;
-      text-align: center;
-      margin: 0 4px;
-      padding: 0 4px;
-      font-size: 14px;
-      font-weight: 600;
-      min-width: 32px;
-      height: 28px;
-      line-height: 28px;
-      cursor: pointer;
-      transition: 0.4s;
-      &:hover {
-        opacity: 0.7;
-      }
-    }
-    .number {
-      &.active {
-        color: var(--mainColor);
-        cursor: default;
-      }
-    }
-    .more_icon {
-      --moreSize: 4px;
-      --moreMargin: 8px;
-      --morePosition: -6px;
-      min-width: initial;
-      padding: 0;
-      display: inline-block;
-      position: relative;
-      top: -2px;
-      margin: 0 var(--moreMargin);
-      &,
-      &:after,
-      &:before {
-        box-sizing: border-box;
-        width: var(--moreSize);
-        height: var(--moreSize);
-        background: var(--mainColor);
-        border-radius: 50%;
-      }
-      &:after,
-      &:before {
-        content: "";
-        position: absolute;
-        top: 0;
-      }
-      &:after {
-        left: var(--morePosition);
-      }
-      &:before {
-        right: var(--morePosition);
-      }
-    }
-    .chevron_icon {
-      box-sizing: border-box;
-      position: relative;
-      display: inline_block;
-      width: 22px;
-      height: 22px;
-      border: 2px solid transparent;
-      border-radius: 50%;
-      &:after {
-        content: "";
-        position: absolute;
-        box-sizing: border-box;
-        width: 10px;
-        height: 10px;
-        border-bottom: 2px solid;
-        border-left: 2px solid;
-        transform: rotate(45deg);
-        left: -2px;
-        top: 4px;
-      }
-      &.right:after {
-        left: -6px;
-        transform: rotate(225deg);
-      }
-    }
-    .disabled {
-      cursor: not-allowed;
-    }
-  }
-  &.background .pager li {
-    border-radius: 3px;
-    background-color: #e5e7eb;
-    &.active {
-      background-color: var(--mainColor);
-      color: #fff;
-    }
-  }
-  .jumper {
-    font-size: 14px;
-    margin: 0 16px;
-    line-height: 28px;
-    .input {
-      border: 1px solid #d1d5db;
-      border-radius: 4px;
-      margin: 0 8px;
-      height: 28px;
-      width: 40px;
-      outline: none;
-      text-align: center;
-      padding: 0 8px;
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-    }
-  }
+}
+
+.pagination .total {
+  line-height: 28px;
+  margin-right: 16px;
+  font-size: 14px;
+}
+
+.pagination .select_size {
+  border: 1px solid #d1d5db;
+  outline: none;
+  padding: 0 16px 0 8px;
+  margin-right: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination .pager {
+  display: inline-block;
+  list-style: none;
+  user-select: none;
+  vertical-align: top;
+  font-size: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination .pager .number.active {
+  color: var(--mainColor);
+  cursor: default;
+}
+
+.pagination .pager .more_icon {
+  --moreSize: 4px;
+  --moreMargin: 8px;
+  --morePosition: -6px;
+  min-width: initial;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  margin: 0 var(--moreMargin);
+}
+.pagination .pager .more_icon,
+.pagination .pager .more_icon:after,
+.pagination .pager .more_icon:before {
+  box-sizing: border-box;
+  width: var(--moreSize);
+  height: var(--moreSize);
+  background: var(--mainColor);
+  border-radius: 50%;
+}
+.pagination .pager .more_icon:after,
+.pagination .pager .more_icon:before {
+  content: "";
+  position: absolute;
+  top: 0;
+}
+.pagination .pager .more_icon:after {
+  left: var(--morePosition);
+}
+.pagination .pager .more_icon:before {
+  right: var(--morePosition);
+}
+
+.pagination .pager .chevron_icon {
+  box-sizing: border-box;
+  position: relative;
+  display: inline_block;
+  width: 22px;
+  height: 22px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+}
+.pagination .pager .chevron_icon:after {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+  transform: rotate(45deg);
+  left: -2px;
+  top: 4px;
+}
+.pagination .pager .chevron_icon.right:after {
+  left: -6px;
+  transform: rotate(225deg);
+}
+
+.pagination .pager .disabled {
+  cursor: not-allowed;
+}
+
+.pagination .pager li {
+  display: inline-block;
+  text-align: center;
+  margin: 0 4px;
+  padding: 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 32px;
+  height: 28px;
+  line-height: 28px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.pagination .pager li:hover {
+  opacity: 0.7;
+}
+
+.pagination.background .pager li {
+  border-radius: 3px;
+  background-color: #e5e7eb;
+}
+.pagination.background .pager li.active {
+  background-color: var(--mainColor);
+  color: #fff;
+}
+
+.pagination .jumper {
+  font-size: 14px;
+  margin: 0 16px;
+  line-height: 28px;
+}
+.pagination .jumper .input {
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  margin: 0 8px;
+  height: 28px;
+  width: 40px;
+  outline: none;
+  text-align: center;
+  padding: 0 8px;
+}
+.pagination .jumper .input::-webkit-outer-spin-button,
+.pagination .jumper .input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

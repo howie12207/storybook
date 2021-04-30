@@ -29,7 +29,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon_more {
   display: inline-block;
   position: relative;

@@ -35,45 +35,45 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon_arrow {
   display: inline-block;
   position: relative;
   box-sizing: border-box;
   width: var(--arrowSize);
   height: var(--arrowSize);
-  &:after,
-  &:before {
-    content: "";
-    position: absolute;
-    box-sizing: border-box;
-    left: 3px;
-  }
-  &:after {
-    width: calc(var(--arrowSize) / 2);
-    height: calc(var(--arrowSize) / 2);
-    border-bottom: 2px solid var(--arrowColor);
-    border-left: 2px solid var(--arrowColor);
-    transform-origin: bottom left;
-    transform: rotate(45deg);
-    left: 2px;
-    bottom: 50%;
-  }
-  &:before {
-    width: calc(var(--arrowSize) - 3px);
-    height: 2px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--arrowColor);
-  }
-  &.top {
-    transform: rotate(90deg);
-  }
-  &.right {
-    transform: rotate(180deg);
-  }
-  &.bottom {
-    transform: rotate(270deg);
-  }
+}
+.icon_arrow:after,
+.icon_arrow:before {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  left: 3px;
+}
+.icon_arrow:after {
+  width: calc(var(--arrowSize) / 2);
+  height: calc(var(--arrowSize) / 2);
+  border-bottom: 2px solid var(--arrowColor);
+  border-left: 2px solid var(--arrowColor);
+  transform-origin: bottom left;
+  transform: rotate(45deg);
+  left: 2px;
+  bottom: 50%;
+}
+.icon_arrow:before {
+  width: calc(var(--arrowSize) - 3px);
+  height: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--arrowColor);
+}
+.icon_arrow.top {
+  transform: rotate(90deg);
+}
+.icon_arrow.right {
+  transform: rotate(180deg);
+}
+.icon_arrow.bottom {
+  transform: rotate(270deg);
 }
 </style>
