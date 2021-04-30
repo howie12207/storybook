@@ -2,8 +2,8 @@
   <div
     :style="style"
     class="card_slider"
-    @mouseenter="clearTimer"
-    @mouseleave="autoPlay"
+    @mouseenter="mouseenterHandle"
+    @mouseleave="mouseleaveHandle"
   >
     <transition-group class="card_slider_items" name="flip-list">
       <div
@@ -15,8 +15,20 @@
         <img :src="item.src" />
       </div>
     </transition-group>
-    <div :class="['icon_chevron', 'left']" @click="change(now - 1)"></div>
-    <div :class="['icon_chevron', 'right']" @click="change(now + 1)"></div>
+    <transition name="move-left">
+      <div
+        v-if="mouseenter"
+        :class="['icon_chevron', 'left']"
+        @click="change(now - 1)"
+      ></div>
+    </transition>
+    <transition name="move-right">
+      <div
+        v-if="mouseenter"
+        :class="['icon_chevron', 'right']"
+        @click="change(now + 1)"
+      ></div>
+    </transition>
   </div>
 </template>
 
@@ -49,6 +61,7 @@ export default Vue.extend({
     return {
       now: 0,
       timer: null,
+      mouseenter: false,
     };
   },
   computed: {
@@ -104,12 +117,17 @@ export default Vue.extend({
           this.change(this.now + 1);
         }, this.auto);
     },
-    clearTimer() {
+    mouseenterHandle() {
+      this.mouseenter = true;
       clearInterval(this.timer);
+    },
+    mouseleaveHandle() {
+      this.mouseenter = false;
+      this.autoPlay();
     },
   },
   beforeDestroy() {
-    this.clearTimer();
+    clearInterval(this.timer);
   },
 });
 </script>
@@ -121,6 +139,7 @@ export default Vue.extend({
   width: 100%;
   overflow: hidden;
 }
+
 .card_slider_items {
   display: flex;
   width: 100%;
@@ -137,16 +156,18 @@ export default Vue.extend({
   z-index: -1;
   visibility: hidden;
 }
-img {
+.card_slider_item img {
   width: 100%;
 }
+
 .flip-list-move {
   transition: transform 0.5s;
 }
+
 .card_slider .icon_chevron {
   --chevronColor: currentColor;
-  --chevronSize: 48px;
-  --chevronLineWidth: 4px;
+  --chevronSize: 24px;
+  --chevronLineWidth: 3px;
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
@@ -155,8 +176,16 @@ img {
   z-index: 1;
   width: var(--chevronSize);
   height: var(--chevronSize);
+  background-color: #ccc;
+  opacity: 0.7;
+  border-radius: 50%;
+  padding: 24px;
   box-sizing: border-box;
   cursor: pointer;
+  transition: 0.4s;
+}
+.card_slider .icon_chevron:hover {
+  opacity: 1;
 }
 .card_slider .icon_chevron:after {
   content: "";
@@ -177,5 +206,36 @@ img {
 }
 .card_slider .icon_chevron.right:after {
   transform: translate(-75%, -50%) rotate(-45deg);
+}
+
+.move-left-enter-active {
+  animation: move-left 0.5s ease forwards;
+}
+.move-left-leave-active {
+  animation: move-left 0.5s ease forwards reverse;
+}
+
+@keyframes move-left {
+  0% {
+    transform: translate(-100%, -50%);
+  }
+  100% {
+    transform: translate(0, -50%);
+  }
+}
+.move-right-enter-active {
+  animation: move-right 0.5s ease forwards;
+}
+.move-right-leave-active {
+  animation: move-right 0.5s ease forwards reverse;
+}
+
+@keyframes move-right {
+  0% {
+    transform: translate(100%, -50%);
+  }
+  100% {
+    transform: translate(0, -50%);
+  }
 }
 </style>
