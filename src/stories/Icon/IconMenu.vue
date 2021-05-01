@@ -10,11 +10,15 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "App",
+  name: "IconMenu",
   props: {
-    menuSize: {
+    size: {
       type: Number,
       default: 32,
+    },
+    mainColor: {
+      type: String,
+      default: "currentColor",
     },
   },
   data() {
@@ -25,9 +29,10 @@ export default Vue.extend({
   computed: {
     style() {
       return {
-        "--menuSize": `${this.menuSize}px`,
-        "--move": `${this.menuSize / 4 + 1}px`,
-        "--move2": `-${this.menuSize / 4 + 1}px`,
+        "--menuSize": `${this.size}px`,
+        "--menuColor": this.mainColor,
+        "--move": `${this.size / 4 + 1}px`,
+        "--move2": `-${this.size / 4 + 1}px`,
       };
     },
   },
@@ -51,14 +56,13 @@ export default Vue.extend({
   align-items: center;
   width: var(--menuSize);
   height: var(--menuSize);
-  margin-left: 16px;
   cursor: pointer;
 }
 .nav_icon .line {
   width: var(--menuSize);
   border-radius: 4px;
-  border: 2px solid #3b82f6;
-  background: #3b82f6;
+  border: 2px solid var(--menuColor);
+  background: var(--menuColor);
   transition: 0.4s;
 }
 

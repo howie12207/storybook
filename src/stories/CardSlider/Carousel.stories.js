@@ -1,21 +1,21 @@
-import CardSlider from "./CardSlider.vue";
+import Carousel from "./Carousel.vue";
 
 export default {
-  title: "Howie/CardSlider",
-  component: CardSlider,
+  title: "Howie/Carousel",
+  component: Carousel,
   argTypes: {},
 };
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { CardSlider },
-  template: '<card-slider :display-num="displayNum" :imgs="imgs" />',
+  components: { Carousel },
+  template: '<carousel :display-num="displayNum" :imgs="imgs" />',
 });
 
 const TemplateAuto = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { CardSlider },
-  template: '<card-slider v-bind="$props" />',
+  components: { Carousel },
+  template: '<carousel v-bind="$props" />',
 });
 
 export const Custom = Template.bind({});

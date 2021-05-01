@@ -36,7 +36,7 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "App",
+  name: "Carousel",
   props: {
     displayNum: {
       type: Number,
@@ -132,7 +132,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss">
+<style scoped>
 .card_slider {
   display: flex;
   position: relative;

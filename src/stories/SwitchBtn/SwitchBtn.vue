@@ -2,7 +2,7 @@
   <div :style="style" class="switch_section">
     <label v-if="leftLabel" class="switch_content">{{ leftLabel }}</label>
     <label class="switch_btn">
-      <input class="checkbox" v-model="toggle" type="checkbox" />
+      <input class="checkbox" v-model="syncValue" type="checkbox" />
       <span class="slider round"></span>
     </label>
     <label v-if="rightLabel" class="switch_content">{{ rightLabel }}</label>
@@ -41,13 +41,20 @@ export default Vue.extend({
       type: Number,
       default: 32,
     },
-  },
-  data() {
-    return {
-      toggle: false,
-    };
+    value: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
+    syncValue: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
+    },
     style() {
       return `
                 --labelColor: ${this.labelColor};
