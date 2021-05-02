@@ -10,9 +10,7 @@ const TemplateBase = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseSelect },
   template: `
-  <div>
       <base-select v-bind="$props" v-model="selected" />
-      <base-select v-bind="$props" v-model="selected" /> </div>
    `,
   data() {
     return {
