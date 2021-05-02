@@ -2,13 +2,13 @@
   <div
     :style="style"
     :class="[
-      'expansion_item',
+      'expansion',
       { expand: active },
       { headerColor },
       { dividerColor },
     ]"
   >
-    <div class="expansion_header" @click="expandHandle">
+    <div class="expansion_header" @click="expandHandle(id, multi)">
       <slot name="header"></slot><IconChevron direction="bottom" />
     </div>
     <ExpandTransition>
@@ -47,11 +47,18 @@ export default Vue.extend({
       type: String,
       default: "",
     },
-  },
-  data() {
-    return {
-      active: false,
-    };
+    id: {
+      type: Number,
+      required: true,
+    },
+    multi: {
+      type: Boolean,
+      default: false,
+    },
+    value: {
+      type: Array,
+      default: () => [],
+    },
   },
   computed: {
     style() {
@@ -61,10 +68,28 @@ export default Vue.extend({
         "--expansionItemDividerColor": this.dividerColor,
       };
     },
+    active() {
+      return this.syncValue.includes(this.id);
+    },
+    syncValue: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
+    },
   },
   methods: {
-    expandHandle() {
-      this.active = !this.active;
+    expandHandle(id, multi) {
+      const index = this.syncValue.findIndex((item) => item === id);
+      if (!multi) {
+        this.syncValue = index === -1 ? [id] : [];
+      } else {
+        index === -1
+          ? this.syncValue.push(id)
+          : this.syncValue.splice(index, 1);
+      }
     },
   },
 });
@@ -74,43 +99,43 @@ export default Vue.extend({
 * {
   box-sizing: border-box;
 }
-.expansion_item {
+.expansion {
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
-.expansion_item.expand {
+.expansion.expand {
   margin: var(--expansionItemGap) 0;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
-.expansion_item.expand:first-child {
+.expansion.expand:first-child {
   margin: 0 0 var(--expansionItemGap) 0;
 }
-.expansion_item.expand:last-child {
+.expansion.expand:last-child {
   margin: var(--expansionItemGap) 0 0 0;
 }
 
-.expansion_item .expansion_header {
+.expansion .expansion_header {
   padding: 16px 24px;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
-.expansion_item.expand.headerColor .expansion_header {
+.expansion.expand.headerColor .expansion_header {
   background: #ccc;
 }
 
-.expansion_item .expansion_header .icon_chevron {
+.expansion .expansion_header .icon_chevron {
   margin-left: auto;
   transition: 0.3s;
 }
-.expansion_item.expand .expansion_header .icon_chevron {
+.expansion.expand .expansion_header .icon_chevron {
   transform: rotate(-180deg);
 }
 
-.expansion_item.expand.dividerColor .expansion_content {
+.expansion.expand.dividerColor .expansion_content {
   border-top: 1px solid var(--expansionItemDividerColor);
 }
 </style>
