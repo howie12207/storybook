@@ -11,7 +11,11 @@ export default Vue.extend({
       type: String,
       default: "currentColor",
     },
-    BgColor: {
+    borderColor: {
+      type: String,
+      default: "transparent",
+    },
+    bgColor: {
       type: String,
       default: "transparent",
     },
@@ -24,7 +28,8 @@ export default Vue.extend({
     style() {
       return {
         "--checkColor": this.mainColor,
-        "--checkBgColor": this.BgColor,
+        "--checkBorderColor": this.borderColor,
+        "--checkBgColor": this.bgColor,
         "--checkSize": `${this.size}px`,
         "--checkBorder": `${(2 / 22) * this.size}px`,
         "--checkLeft": `${(4 / 22) * this.size}px`,
@@ -44,7 +49,7 @@ export default Vue.extend({
   display: inline-block;
   width: var(--checkSize);
   height: var(--checkSize);
-  border: var(--checkBorder) solid transparent;
+  border: var(--checkBorder) solid var(--checkBorderColor);
   border-radius: 50%;
   background-color: var(--checkBgColor);
 }
