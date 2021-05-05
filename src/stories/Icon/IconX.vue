@@ -11,6 +11,14 @@ export default Vue.extend({
       type: String,
       default: "currentColor",
     },
+    borderColor: {
+      type: String,
+      default: "transparent",
+    },
+    bgColor: {
+      type: String,
+      default: "transparent",
+    },
     size: {
       type: Number,
       default: 24,
@@ -20,6 +28,8 @@ export default Vue.extend({
     style() {
       return {
         "--xColor": this.mainColor,
+        "--xBorderColor": this.borderColor,
+        "--xBgColor": this.bgColor,
         "--xSize": `${this.size}px`,
       };
     },
@@ -34,8 +44,9 @@ export default Vue.extend({
   box-sizing: border-box;
   width: var(--xSize);
   height: var(--xSize);
-  border: 2px solid var(--xColor);
+  border: 2px solid var(--xBorderColor);
   border-radius: 50%;
+  background-color: var(--xBgColor);
 }
 .icon_x:after,
 .icon_x:before {
