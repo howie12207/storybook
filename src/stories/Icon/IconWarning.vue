@@ -1,11 +1,11 @@
 <template>
-  <i :style="style" class="icon_info"></i>
+  <i :style="style" class="icon_warning"></i>
 </template>
 
 <script>
 import Vue from "vue";
 export default Vue.extend({
-  name: "IconInfo",
+  name: "IconWarning",
   props: {
     mainColor: {
       type: String,
@@ -27,10 +27,10 @@ export default Vue.extend({
   computed: {
     style() {
       return {
-        "--infoColor": this.mainColor,
-        "--infoBorderColor": this.borderColor,
-        "--infoBgColor": this.bgColor,
-        "--infoSize": `${this.size}px`,
+        "--warningColor": this.mainColor,
+        "--warningBorderColor": this.borderColor,
+        "--warningBgColor": this.bgColor,
+        "--warningSize": `${this.size}px`,
       };
     },
   },
@@ -38,32 +38,32 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.icon_info {
+.icon_warning {
   display: inline-block;
   position: relative;
-  width: var(--infoSize);
-  height: var(--infoSize);
-  border: 2px solid var(--infoBorderColor);
+  width: var(--warningSize);
+  height: var(--warningSize);
+  border: 2px solid var(--warningBorderColor);
   border-radius: 50%;
   box-sizing: border-box;
-  background-color: var(--infoBgColor);
+  background-color: var(--warningBgColor);
 }
-.icon_info::after,
-.icon_info::before {
+.icon_warning::after,
+.icon_warning::before {
   content: "";
   position: absolute;
   box-sizing: border-box;
   border-radius: 3px;
-  width: calc(2 / 20 * var(--infoSize));
-  background: var(--infoColor);
-  left: calc(var(--infoSize) / 2 - 2px - 2 / 20 * var(--infoSize) / 2);
+  width: calc(2 / 20 * var(--warningSize));
+  background: var(--warningColor);
+  left: calc(var(--warningSize) / 2 - 2px - 2 / 20 * var(--warningSize) / 2);
 }
-.icon_info::after {
-  top: calc(2 / 20 * var(--infoSize));
-  height: calc(8 / 20 * var(--infoSize));
+.icon_warning::after {
+  top: calc(2 / 20 * var(--warningSize));
+  height: calc(8 / 20 * var(--warningSize));
 }
-.icon_info::before {
-  height: calc(2 / 20 * var(--infoSize));
-  bottom: calc(2 / 20 * var(--infoSize));
+.icon_warning::before {
+  height: calc(2 / 20 * var(--warningSize));
+  bottom: calc(2 / 20 * var(--warningSize));
 }
 </style>
