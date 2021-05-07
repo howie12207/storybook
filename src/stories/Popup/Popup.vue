@@ -1,15 +1,25 @@
 <template>
-  <div class="popup_mask">
-    <div class="popup_content" :style="{ width }">
-      <slot name="content" :closePopupEvent="closePopup"></slot>
-      <div v-if="closeBtn" class="icon_x" @click="closePopup"></div>
+  <transition name="fade">
+    <div v-if="show" :style="style" class="popup_mask" @click="closeHandle">
+      <div :class="['popup_content']">
+        <slot :closeEvent="close"></slot>
+        <IconX v-if="closeBtn" @click.native="close" pointer />
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
 import Vue from "vue";
+import IconX from "./IconX";
+
 export default Vue.extend({
+  name: "Popup",
+  components: { IconX },
   props: {
+    closeOut: {
+      type: Boolean,
+      default: true,
+    },
     width: {
       type: String,
       default: "600px",
@@ -19,9 +29,28 @@ export default Vue.extend({
       default: true,
     },
   },
+  data() {
+    return {
+      show: false,
+    };
+  },
+  mounted() {
+    this.show = true;
+  },
+  computed: {
+    style() {
+      return {
+        "--popupWidth": this.width,
+      };
+    },
+  },
   methods: {
-    closePopup() {
-      this.$emit("closePopup");
+    closeHandle(e) {
+      if (!this.closeOut) return;
+      if (e.target.className.includes("popup_mask")) this.close();
+    },
+    close() {
+      this.$emit("close");
     },
   },
 });
@@ -43,44 +72,60 @@ export default Vue.extend({
   z-index: 101;
 }
 .popup_mask .popup_content {
+  width: var(--popupWidth);
+  max-width: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  padding: 24px;
   min-height: 50px;
   max-height: 90%;
   overflow: auto;
   background-color: #f3f4f6;
   border-radius: 5px;
+  animation: move-down 0.5s;
 }
+
 .popup_mask .popup_content .icon_x {
   position: absolute;
   z-index: 102;
   top: 8px;
   right: 8px;
-  display: inline-block;
-  transform: scale(var(--xSize));
-  width: 22px;
-  height: 22px;
-  border: 2px solid var(--xColor);
-  border-radius: 50%;
-  cursor: pointer;
 }
-.popup_mask .popup_content .icon_x::after,
-.popup_mask .popup_content .icon_x::before {
-  content: "";
-  display: block;
-  box-sizing: border-box;
-  position: absolute;
-  width: 12px;
-  height: 2px;
-  background: var(--xColor);
-  transform: rotate(45deg);
-  border-radius: 5px;
-  top: 8px;
-  left: 3px;
+.fade-enter-active {
+  animation: fade 0.3s ease forwards;
 }
-.popup_mask .popup_content .icon_x::after {
-  transform: rotate(-45deg);
+.fade-leave-active {
+  animation: fade 0.3s ease forwards reverse;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes move-down {
+  0% {
+    top: 0;
+  }
+  50% {
+    top: 50%;
+  }
+  60% {
+    top: 47%;
+  }
+  80% {
+    top: 50%;
+  }
+  90% {
+    top: 49%;
+  }
+  100% {
+    top: 50%;
+  }
 }
 </style>
