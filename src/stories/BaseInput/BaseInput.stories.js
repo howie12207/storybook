@@ -3,7 +3,11 @@ import BaseInput from "./BaseInput.vue";
 export default {
   title: "Howie/BaseInput",
   component: BaseInput,
-  argTypes: {},
+  argTypes: {
+    custom: {
+      control: { type: "select", options: ["base_input", "base_input_2"] },
+    },
+  },
 };
 
 const BaseTemplate = (args, { argTypes }) => ({
@@ -18,7 +22,7 @@ const EmailTemplate = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
-      <base-input v-model="value" :label="label" :is-valid.sync="isValid" :rules="rules"  />
+      <base-input v-model="value" :label="label" :placeholder="placeholder" :is-valid.sync="isValid" :rules="rules" />
    `,
 });
 
@@ -26,7 +30,7 @@ const NumberTemplate = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
-      <base-input v-model="value" :label="label" :is-valid.sync="isValid" :rules="rules" type="number"  />
+      <base-input v-model="value" :label="label" :placeholder="placeholder" :is-valid.sync="isValid" :rules="rules" type="number" />
    `,
 });
 
@@ -36,7 +40,7 @@ const CompareTemplate = (args, { argTypes }) => ({
   template: `
     <div>
       <base-input v-bind="$props" v-model="value" :is-valid.sync="isValid" @onKeyup="compareHandle" @onBlur="compareHandle" />
-      <base-input v-bind="$props" :label="label2" :placeholder="placeholder2" :error-message="confirmPassword.errorMessage" v-model="confirmPassword.value" :is-valid.sync="confirmPassword.isValid" @onKeyup="compareHandle" @onBlur="compareHandle" />
+      <base-input v-bind="$props" :label="label2" :is-valid.sync="isValid2" :rules="rules2" :placeholder="placeholder2" :error-message="confirmPassword.errorMessage" v-model="confirmPassword.value" @onKeyup="compareHandle" @onBlur="compareHandle" />
     </div>
    `,
   data() {
@@ -73,7 +77,15 @@ const NotRequiredTemplate = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
-      <base-input v-model="value" :label="label" :is-valid.sync="isValid" not-required />
+      <base-input v-model="value" :label="label" />
+   `,
+});
+
+const NoLabelTemplate = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
+  components: { BaseInput },
+  template: `
+      <base-input v-model="value"  />
    `,
 });
 
@@ -81,7 +93,15 @@ const MultiLineTemplate = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
-      <base-input v-model="value" :label="label" :is-valid.sync="isValid" multi-line />
+      <base-input v-model="value" :label="label" multi-line />
+   `,
+});
+
+const SecondStyleTemplate = (args, { argTypes }) => ({
+  props: Object.keys(argTypes),
+  components: { BaseInput },
+  template: `
+      <base-input v-model="value" :label="label" :custom="custom" />
    `,
 });
 
@@ -110,6 +130,7 @@ Number.args = {
   placeholder: "請輸入金額",
   rules: {
     limit: "number",
+    isRequired: true,
   },
 };
 
@@ -124,6 +145,11 @@ Compare.args = {
   type: "password",
   label2: "確認密碼",
   placeholder2: "請再次輸入密碼",
+  isValid2: false,
+  rules2: {
+    min: 6,
+    max: 20,
+  },
 };
 
 export const UpperCase = UpperCaseTemplate.bind({});
@@ -136,7 +162,16 @@ NotRequired.args = {
   label: "Line",
 };
 
+export const NoLabel = NoLabelTemplate.bind({});
+NoLabel.args = {};
+
 export const MultiLine = MultiLineTemplate.bind({});
 MultiLine.args = {
   label: "帳號",
+};
+
+export const SecondStyle = SecondStyleTemplate.bind({});
+SecondStyle.args = {
+  label: "帳號",
+  custom: "base_input_2",
 };

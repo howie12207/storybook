@@ -1,6 +1,18 @@
 <template>
-  <div :class="['base_input', { multi_line: multiLine }]">
-    <div class="left">
+  <div
+    :class="[
+      custom,
+      {
+        error:
+          blurInput &&
+          (!isValid || errorMessage) &&
+          Object.keys(rules).length > 0,
+      },
+      { focus },
+      { multi_line: multiLine },
+    ]"
+  >
+    <div v-if="label" class="left">
       <div class="input_label top">{{ label }}</div>
       <div class="left_bottom bottom"></div>
     </div>
@@ -12,16 +24,11 @@
           :placeholder="placeholder"
           :disabled="disabled"
           :upper-case="upperCase"
-          :class="[
-            'input_content',
-            {
-              error: blurInput && (!isValid || errorMessage),
-            },
-            { clear_btn: clearBtn },
-          ]"
+          :class="['input_content', { clear_btn: clearBtn }]"
           @keyup="onKeyup(value)"
           @blur="onBlur(value)"
           @keydown="onKeydown"
+          @focus="onFocus"
         />
         <div
           v-if="clearBtn && clearBtnShow"
@@ -29,16 +36,23 @@
           @click="clear"
         ></div>
       </div>
-      <div class="error_message bottom">
+      <div
+        :class="[
+          'error_message',
+          'bottom',
+          { need_verify: Object.keys(rules).length > 0 },
+        ]"
+      >
         <div v-if="blurInput && !isValid && !errorMessage" class="error">
+          <span v-if="rules.isRequired">請勿空白</span>
           <span v-if="rules.min && rules.max">{{
             "請輸入" + rules.min + " ~ " + rules.max + rulesLimit
           }}</span>
           <span v-else-if="rules.only">{{
-            "請輸入" + rules.only + "個數字"
+            "請輸入" + rules.only + rulesLimit
           }}</span>
           <span v-else-if="rules.atLeast">{{
-            "請輸入至少" + rules.atLeast + "個字元"
+            "請輸入至少" + rules.atLeast + rulesLimit
           }}</span>
           <span v-else-if="rules.limit === 'mail'">電子信箱格式錯誤</span>
         </div>
@@ -55,6 +69,10 @@ import Vue from "vue";
 export default Vue.extend({
   name: "BaseInput",
   props: {
+    value: {
+      type: String,
+      default: "",
+    },
     label: {
       type: String,
       default: "",
@@ -63,19 +81,11 @@ export default Vue.extend({
       type: String,
       default: "",
     },
-    value: {
-      type: String,
-      default: "",
-    },
     type: {
       type: String,
       default: "text",
     },
     disabled: {
-      type: Boolean,
-      default: false,
-    },
-    upperCase: {
       type: Boolean,
       default: false,
     },
@@ -91,10 +101,6 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
-    notRequired: {
-      type: Boolean,
-      default: false,
-    },
     clearBtn: {
       type: Boolean,
       default: true,
@@ -103,12 +109,21 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    upperCase: {
+      type: Boolean,
+      default: false,
+    },
+    custom: {
+      type: String,
+      default: "base_input",
+    },
   },
   data() {
     return {
       blurInput: false,
       error: null,
       clearBtnShow: false,
+      focus: false,
     };
   },
   computed: {
@@ -137,6 +152,7 @@ export default Vue.extend({
   methods: {
     onBlur(value) {
       if (!this.blurInput) this.blurInput = true;
+      this.focus = false;
       this.validate(value);
       this.$emit("onBlur", value);
     },
@@ -149,18 +165,20 @@ export default Vue.extend({
       if (this.rules.limit === "number") {
         const keycode = [69, 107, 109, 110, 187, 189, 190];
         if (keycode.includes(e.keyCode)) e.preventDefault();
+      } else if (this.rules.limit === "decimal") {
+        const keycode = [69, 107, 109, 187, 189];
+        if (keycode.includes(e.keyCode)) e.preventDefault();
       }
+    },
+    onFocus() {
+      this.focus = true;
     },
     validate(value) {
       let isValid = true;
-      if (Object.keys(this.rules).length > 0 && value) {
+      if (Object.keys(this.rules).length > 0) {
         const typeLimit = this.typeRules(value, this.rules.limit);
         const lengthLimit = this.lengthRules(value);
         isValid = typeLimit && lengthLimit && !this.errorMessage;
-      }
-      if (!value) {
-        isValid = false;
-        if (this.notRequired) isValid = true;
       }
       this.$emit("update:isValid", isValid);
     },
@@ -178,6 +196,9 @@ export default Vue.extend({
         mail() {
           return /\S+@\S+\.\S+/.test(value);
         },
+        decimal() {
+          return /^(\d+)(\.\d{1,2})?$/.test(value);
+        },
       };
       return (
         !type ||
@@ -186,7 +207,9 @@ export default Vue.extend({
       );
     },
     lengthRules(value) {
-      if (this.rules.min && this.rules.max) {
+      if (this.rules.isRequired) {
+        return value.length > 0;
+      } else if (this.rules.min && this.rules.max) {
         return value.length >= this.rules.min && value.length <= this.rules.max;
       } else if (this.rules.only) {
         return value.length === this.rules.only;
@@ -199,7 +222,7 @@ export default Vue.extend({
       this.syncValue = "";
       this.blurInput = false;
       this.clearBtnShow = false;
-      this.$emit("update:isValid", this.notRequired);
+      this.$emit("update:isValid", !this.rules?.isRequired);
     },
   },
 });
@@ -210,25 +233,31 @@ export default Vue.extend({
   box-sizing: border-box;
 }
 .base_input {
-  --borderColor: #d1d5db;
-  --errorColor: #ef4444;
-  --focusColor: #3b82f6;
-  --fontColor: #6b7280;
-  --clearSize: 0.6;
+  --inputBorderColor: #d1d5db;
+  --inputErrorColor: #ef4444;
+  --inputFocusColor: #3b82f6;
+  --inputFontColor: #6b7280;
+  --inputTopHeight: 40px;
+  --inputClearSize: 0.6;
   display: flex;
   flex-wrap: wrap;
   font-size: 14px;
-  color: var(--fontColor);
+  color: var(--inputFontColor);
+  margin-bottom: 8px;
 }
 .base_input.multi_line {
   display: block;
 }
 .base_input .top {
-  height: 40px;
-  line-height: 40px;
+  height: var(--inputTopHeight);
+  line-height: var(--inputTopHeight);
 }
-.base_input .input_label {
+.base_input .left {
   min-width: 80px;
+  margin-right: 8px;
+}
+.right {
+  flex-grow: 1;
 }
 .base_input .input_block {
   position: relative;
@@ -240,61 +269,139 @@ export default Vue.extend({
   width: 100%;
   height: 100%;
   padding: 0 32px 0 16px;
-  border: 1px solid var(--borderColor);
+  border: 1px solid var(--inputBorderColor);
   border-radius: 4px;
   transition: 0.3s;
   outline: none;
 }
 .base_input .input_block .input_content:focus {
-  border: 1px solid var(--focusColor);
+  border: 1px solid var(--inputFocusColor);
 }
-.base_input .input_block .input_content.error {
-  border: 1px solid var(--errorColor);
+.base_input.error .input_block .input_content {
+  border: 1px solid var(--inputErrorColor);
 }
 
-.base_input .input_block .x_icon {
+.input_block .x_icon {
   position: absolute;
   right: 8px;
   top: 10px;
-  transform: scale(var(--clearSize));
+  transform: scale(var(--inputClearSize));
   width: 22px;
   height: 22px;
-  border: 1px solid var(--fontColor);
+  border: 1px solid var(--inputFontColor);
   border-radius: 50%;
   cursor: pointer;
   transition: 0.4s;
   opacity: 0.7;
 }
-.base_input .input_block .x_icon:hover {
+.input_block .x_icon:hover {
   opacity: 1;
 }
-.base_input .input_block .x_icon::after,
-.base_input .input_block .x_icon::before {
+.input_block .x_icon::after,
+.input_block .x_icon::before {
   content: "";
   box-sizing: border-box;
   position: absolute;
   width: 12px;
   height: 1px;
-  background: var(--fontColor);
+  background: var(--inputFontColor);
   transform: rotate(45deg);
   border-radius: 5px;
   top: 9px;
   left: 4px;
 }
-.base_input .input_block .x_icon::after {
+.input_block .x_icon::after {
   transform: rotate(-45deg);
 }
 
-.base_input .error_message {
+.base_input .error_message.need_verify {
   height: 12px;
   font-size: 12px;
   margin: 8px 0;
-  color: var(--errorColor);
+  color: var(--inputErrorColor);
 }
 
-.base_input input::-webkit-outer-spin-button,
-.base_input input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* 第二套樣式 */
+.base_input_2 {
+  --inputBorderColor: #d1d5db;
+  --inputErrorColor: #ef4444;
+  --inputFocusColor: #3b82f6;
+  --inputFontColor: #6b7280;
+  --inputTopHeight: 40px;
+  --inputClearSize: 0.6;
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--inputFontColor);
+  margin-bottom: 8px;
+}
+
+.base_input_2 .top {
+  padding: 4px 8px;
+  height: var(--inputTopHeight);
+  line-height: calc(var(--inputTopHeight) - 8px);
+  border-left: 1px solid var(--inputBorderColor);
+  border-top: 1px solid var(--inputBorderColor);
+  border-bottom: 1px solid var(--inputBorderColor);
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  transition: 0.3s;
+}
+.base_input_2 .input_label {
+  min-width: 80px;
+  position: relative;
+}
+.base_input_2 .input_label:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  width: 2px;
+  height: 24px;
+  background-color: #ccc;
+}
+
+.base_input_2 .input_block {
+  position: relative;
+  border-left: none;
+  border-right: 1px solid var(--inputBorderColor);
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  transition: 0.3s;
+}
+.base_input_2 .input_content {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.base_input_2 .input_content.clear_btn {
+  padding-right: 24px;
+  border: none;
+  outline: none;
+}
+
+.base_input_2.focus .top {
+  border-color: var(--inputFocusColor);
+}
+.base_input_2.error .top {
+  border-color: var(--inputErrorColor);
+}
+
+.base_input_2 .error_message {
+  height: 12px;
+  font-size: 12px;
+  margin: 4px 0;
+  padding: 0 8px;
+  color: var(--inputErrorColor);
 }
 </style>
