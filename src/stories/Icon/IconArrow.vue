@@ -1,5 +1,5 @@
 <template>
-  <div :style="style" :class="['icon_arrow', direction]"></div>
+  <div :style="style" :class="['icon_arrow', direction, { pointer }]"></div>
 </template>
 
 <script>
@@ -30,6 +30,10 @@ export default Vue.extend({
         return ["left", "top", "right", "bottom"].includes(value);
       },
     },
+    pointer: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     style() {
@@ -46,7 +50,9 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-* {
+*,
+*:after,
+*:before {
   box-sizing: border-box;
 }
 .icon_arrow {
@@ -55,7 +61,7 @@ export default Vue.extend({
   width: var(--arrowSize);
   height: var(--arrowSize);
   border: 1px solid var(--arrowBorderColor);
-  border-radius: 100%;
+  border-radius: 50%;
   background-color: var(--arrowBgColor);
 }
 .icon_arrow:after,
@@ -89,5 +95,14 @@ export default Vue.extend({
 }
 .icon_arrow.bottom {
   transform: rotate(270deg);
+}
+
+.icon_arrow.pointer {
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.7;
+}
+.icon_arrow.pointer:hover {
+  opacity: 1;
 }
 </style>

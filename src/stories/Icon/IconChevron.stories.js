@@ -15,6 +15,12 @@ export default {
     mainColor: {
       description: "The symbol color.",
     },
+    borderColor: {
+      description: "The border color.",
+    },
+    bgColor: {
+      description: "The background color.",
+    },
     lineWidth: {
       description: "The symbol lineWidth.",
     },
@@ -26,6 +32,9 @@ export default {
           detail: "left, top, right, bottom",
         },
       },
+    },
+    pointer: {
+      description: "Define whether hover effect or not.",
     },
   },
 };

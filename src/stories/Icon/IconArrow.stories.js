@@ -30,6 +30,9 @@ export default {
         },
       },
     },
+    pointer: {
+      description: "Define whether hover effect or not.",
+    },
   },
 };
 

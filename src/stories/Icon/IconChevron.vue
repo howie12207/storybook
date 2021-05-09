@@ -1,5 +1,5 @@
 <template>
-  <div :style="style" :class="['icon_chevron', direction]"></div>
+  <div :style="style" :class="['icon_chevron', direction, { pointer }]"></div>
 </template>
 
 <script>
@@ -7,13 +7,21 @@ import Vue from "vue";
 export default Vue.extend({
   name: "IconChevron",
   props: {
+    size: {
+      type: Number,
+      default: 24,
+    },
     mainColor: {
       type: String,
       default: "currentColor",
     },
-    size: {
-      type: Number,
-      default: 24,
+    borderColor: {
+      type: String,
+      default: "transparent",
+    },
+    bgColor: {
+      type: String,
+      default: "transparent",
     },
     direction: {
       type: String,
@@ -26,12 +34,18 @@ export default Vue.extend({
       type: Number,
       default: 2,
     },
+    pointer: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     style() {
       return {
-        "--chevronColor": this.mainColor,
         "--chevronSize": `${this.size}px`,
+        "--chevronColor": this.mainColor,
+        "--chevronBorderColor": this.borderColor,
+        "--chevronBgColor": this.bgColor,
         "--chevronLineWidth": `${this.lineWidth}px`,
       };
     },
@@ -40,21 +54,27 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
 .icon_chevron {
   display: inline-block;
   position: relative;
   width: var(--chevronSize);
   height: var(--chevronSize);
-  box-sizing: border-box;
+  border: 1px solid var(--chevronBorderColor);
+  border-radius: 50%;
+  background-color: var(--chevronBgColor);
 }
 .icon_chevron:after {
   content: "";
   position: absolute;
-  box-sizing: border-box;
   border: solid var(--chevronColor);
   border-width: 0 var(--chevronLineWidth) var(--chevronLineWidth) 0;
   border-bottom-right-radius: 2px;
-  padding: calc(calc(var(--chevronSize) - var(--chevronLineWidth)) / 3);
+  padding: calc(calc(var(--chevronSize) - var(--chevronLineWidth)) / 5);
   top: 50%;
   left: 50%;
   transform: translate(-25%, -50%) rotate(135deg);
@@ -67,5 +87,14 @@ export default Vue.extend({
 }
 .icon_chevron.bottom:after {
   transform: translate(-50%, -75%) rotate(45deg);
+}
+
+.icon_chevron.pointer {
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.7;
+}
+.icon_chevron.pointer:hover {
+  opacity: 1;
 }
 </style>
