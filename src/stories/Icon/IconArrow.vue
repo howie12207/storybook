@@ -7,13 +7,21 @@ import Vue from "vue";
 export default Vue.extend({
   name: "IconArrow",
   props: {
+    size: {
+      type: Number,
+      default: 24,
+    },
     mainColor: {
       type: String,
       default: "currentColor",
     },
-    size: {
-      type: Number,
-      default: 24,
+    borderColor: {
+      type: String,
+      default: "transparent",
+    },
+    bgColor: {
+      type: String,
+      default: "transparent",
     },
     direction: {
       type: String,
@@ -26,8 +34,10 @@ export default Vue.extend({
   computed: {
     style() {
       return {
-        "--arrowColor": this.mainColor,
         "--arrowSize": `${this.size}px`,
+        "--arrowColor": this.mainColor,
+        "--arrowBorderColor": this.borderColor,
+        "--arrowBgColor": this.bgColor,
         "--arrowLineWidth": this.lineWidth,
       };
     },
@@ -36,32 +46,36 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
 .icon_arrow {
   display: inline-block;
   position: relative;
-  box-sizing: border-box;
   width: var(--arrowSize);
   height: var(--arrowSize);
+  border: 1px solid var(--arrowBorderColor);
+  border-radius: 100%;
+  background-color: var(--arrowBgColor);
 }
 .icon_arrow:after,
 .icon_arrow:before {
   content: "";
   position: absolute;
-  box-sizing: border-box;
-  left: 3px;
+  left: calc(var(--arrowSize) / 8);
 }
 .icon_arrow:after {
-  width: calc(var(--arrowSize) / 2);
-  height: calc(var(--arrowSize) / 2);
+  width: calc(var(--arrowSize) / 3);
+  height: calc(var(--arrowSize) / 3);
   border-bottom: 2px solid var(--arrowColor);
   border-left: 2px solid var(--arrowColor);
   transform-origin: bottom left;
   transform: rotate(45deg);
-  left: 2px;
+  left: calc(var(--arrowSize) / 8 - 1px);
   bottom: 50%;
 }
 .icon_arrow:before {
-  width: calc(var(--arrowSize) - 3px);
+  width: calc(var(--arrowSize) - var(--arrowSize) / 4 - 2px);
   height: 2px;
   top: 50%;
   transform: translateY(-50%);

@@ -15,6 +15,12 @@ export default {
     mainColor: {
       description: "The symbol color.",
     },
+    borderColor: {
+      description: "The border color.",
+    },
+    bgColor: {
+      description: "The background color.",
+    },
     direction: {
       description: "The arrow direction.",
       control: { type: "select", options: ["left", "top", "right", "bottom"] },
