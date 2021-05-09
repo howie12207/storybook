@@ -1,8 +1,21 @@
 import IconMore from "./IconMore.vue";
 
 export default {
-  title: "Howie/Icon",
+  title: "Howie/Icon/More",
   component: IconMore,
+  argTypes: {
+    size: {
+      description: "The dot width & height.",
+      table: {
+        type: {
+          detail: "px",
+        },
+      },
+    },
+    mainColor: {
+      description: "The symbol color.",
+    },
+  },
 };
 
 const TemplateMore = (args, { argTypes }) => ({

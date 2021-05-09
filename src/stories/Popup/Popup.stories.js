@@ -1,23 +1,47 @@
 import Popup from "./Popup.vue";
 import BaseButton from "../BaseButton/BaseButton.vue";
-import { action } from "@storybook/addon-actions";
 
 export default {
   title: "Howie/Popup",
   component: Popup,
   argTypes: {
-    close: { action: "close" },
+    width: {
+      description: "The popup width.",
+    },
+    closeBtn: {
+      description: "Show close btn or not.",
+    },
+    closeOut: {
+      description: "Define click outside will close popup or not.",
+    },
+    close: {
+      description: "Close events.",
+      table: {
+        type: {
+          summary: "function",
+        },
+      },
+      action: "close",
+    },
+    default: {
+      description: "The content inside popup.",
+      table: {
+        type: {
+          summary: "slot",
+        },
+      },
+    },
   },
 };
 
-const Template = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Popup, BaseButton },
   template: `
     <div>
-      <base-button text="開啟" @click.native="popup('open')"></base-button>
+      <base-button label="開啟" @click.native="popup('open')"></base-button>
       <popup v-if="popupOpen === 'open'" v-bind="$props" @close="closeHandle">
-        <template>test123</template>
+        <template>彈窗內容</template>
       </popup>
     </div>
     `,
@@ -28,7 +52,6 @@ const Template = (args, { argTypes }) => ({
   },
   mounted() {
     this.popupOpen = "";
-    console.log(argTypes);
   },
   methods: {
     popup(target) {
@@ -36,7 +59,6 @@ const Template = (args, { argTypes }) => ({
     },
     closeHandle() {
       this.popupOpen = "";
-      action("close");
     },
   },
 });
@@ -46,9 +68,9 @@ const TemplateNotCloseOutside = (args, { argTypes }) => ({
   components: { Popup, BaseButton },
   template: `
     <div>
-      <base-button text="開啟 (點擊外面不會關閉)" @click.native="popup('open')"></base-button>
+      <base-button label="開啟 (點擊外面不會關閉)" @click.native="popup('open')"></base-button>
       <popup v-if="popupOpen === 'open'" v-bind="$props" @close="closeHandle">
-        <template>test123</template>
+        <template>彈窗內容</template>
       </popup>
     </div>
     `,
@@ -59,7 +81,6 @@ const TemplateNotCloseOutside = (args, { argTypes }) => ({
   },
   mounted() {
     this.popupOpen = "";
-    console.log(argTypes);
   },
   methods: {
     popup(target) {
@@ -67,12 +88,11 @@ const TemplateNotCloseOutside = (args, { argTypes }) => ({
     },
     closeHandle() {
       this.popupOpen = "";
-      action("close");
     },
   },
 });
 
-export const Custom = Template.bind({});
+export const Custom = TemplateCustom.bind({});
 Custom.args = {};
 
 export const NotCloseOutside = TemplateNotCloseOutside.bind({});

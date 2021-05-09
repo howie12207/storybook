@@ -1,8 +1,30 @@
 import IconX from "./IconX.vue";
 
 export default {
-  title: "Howie/Icon",
+  title: "Howie/Icon/X",
   component: IconX,
+  argTypes: {
+    size: {
+      description: "The icon width & height.",
+      table: {
+        type: {
+          detail: "px",
+        },
+      },
+    },
+    mainColor: {
+      description: "The symbol color.",
+    },
+    borderColor: {
+      description: "The border color.",
+    },
+    bgColor: {
+      description: "The background color.",
+    },
+    pointer: {
+      description: "Define whether hover effect or not.",
+    },
+  },
 };
 
 const TemplateX = (args, { argTypes }) => ({

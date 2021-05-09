@@ -1,6 +1,10 @@
 <template>
-  <button :style="style" :class="['base_button', { disabled }]">
-    {{ text }}
+  <button
+    :style="style"
+    :class="['base_button', { disabled }]"
+    @click="clickHandle"
+  >
+    {{ label }}
   </button>
 </template>
 
@@ -9,13 +13,10 @@ import Vue from "vue";
 export default Vue.extend({
   name: "BaseButton",
   props: {
-    text: {
+    label: {
       type: String,
       default: "Button",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
+      required: true,
     },
     mainColor: {
       type: String,
@@ -25,13 +26,22 @@ export default Vue.extend({
       type: String,
       default: "#d1d5db",
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     style() {
       return {
-        "--mainColor": this.mainColor,
-        "--disabledColor": this.disabledColor,
+        "--buttonMainColor": this.mainColor,
+        "--buttonDisabledColor": this.disabledColor,
       };
+    },
+  },
+  methods: {
+    clickHandle() {
+      if (!this.disabled) this.$emit("click");
     },
   },
 });
@@ -43,25 +53,25 @@ export default Vue.extend({
 }
 .base_button {
   display: inline-block;
-  border: 1px solid var(--mainColor);
+  border: 1px solid var(--buttonMainColor);
   background-color: #fff;
-  color: var(--mainColor);
+  color: var(--buttonMainColor);
   padding: 4px 16px;
   cursor: pointer;
   border-radius: 4px;
   transition: 0.4s;
 }
 .base_button:hover {
-  background-color: var(--mainColor);
+  background-color: var(--buttonMainColor);
   color: #fff;
 }
 .base_button.disabled {
-  border: 1px solid var(--disabledColor);
-  color: var(--disabledColor);
+  border: 1px solid var(--buttonDisabledColor);
+  color: var(--buttonDisabledColor);
   cursor: not-allowed;
 }
 .base_button.disabled:hover {
   background-color: initial;
-  color: var(--disabledColor);
+  color: var(--buttonDisabledColor);
 }
 </style>

@@ -4,18 +4,55 @@ import BaseButton from "../BaseButton/BaseButton.vue";
 export default {
   title: "Howie/Message",
   component: Message,
-  argTypes: {},
+  parameters: {
+    docs: {
+      description: {
+        component: `import message.js globally.
+        <table>
+          <tbody>
+            <tr>
+              <td>@params</td>
+              <td>{string}</td>
+              <td>type</td>
+              <td>The message type.</td>
+              <td>success, error, warning, info</td>
+            </tr>
+            <tr>
+              <td>@params</td>
+              <td>{string}</td>
+              <td>message</td>
+              <td>The message content.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>@params</td>
+              <td>{number}</td>
+              <td>duration</td>
+              <td>The message showing time.</td>
+              <td>seconds</td>
+            </tr>
+            <tr>
+              <td>@params</td>
+              <td>{boolean}</td>
+              <td>showClose</td>
+              <td>Show close btn or not.</td>
+              <td></td>
+            </tr>
+          </tbody></table>`,
+      },
+    },
+  },
 };
 
-const Template = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseButton },
   template: `
   <div>
-    <BaseButton text="成功" @click.native="openSuccess" />
-    <BaseButton text="失敗" main-color="#EF4444" @click.native="openError" />
-    <BaseButton text="警告" main-color="#F59E0B" @click.native="openWarning" />
-    <BaseButton text="資訊" main-color="#6B7280" @click.native="openInfo" />
+    <BaseButton label="成功" @click.native="openSuccess" />
+    <BaseButton label="失敗" main-color="#EF4444" @click.native="openError" />
+    <BaseButton label="警告" main-color="#F59E0B" @click.native="openWarning" />
+    <BaseButton label="資訊" main-color="#6B7280" @click.native="openInfo" />
   </div>
   `,
   methods: {
@@ -38,10 +75,10 @@ const TemplateNoCloseBtn = (args, { argTypes }) => ({
   components: { BaseButton },
   template: `
   <div>
-    <BaseButton text="成功" @click.native="openSuccess" />
-    <BaseButton text="失敗" main-color="#EF4444" @click.native="openError" />
-    <BaseButton text="警告" main-color="#F59E0B" @click.native="openWarning" />
-    <BaseButton text="資訊" main-color="#6B7280" @click.native="openInfo" />
+    <BaseButton label="成功" @click.native="openSuccess" />
+    <BaseButton label="失敗" main-color="#EF4444" @click.native="openError" />
+    <BaseButton label="警告" main-color="#F59E0B" @click.native="openWarning" />
+    <BaseButton label="資訊" main-color="#6B7280" @click.native="openInfo" />
   </div>
   `,
   methods: {
@@ -60,7 +97,7 @@ const TemplateNoCloseBtn = (args, { argTypes }) => ({
   },
 });
 
-export const Custom = Template.bind({});
+export const Custom = TemplateCustom.bind({});
 Custom.args = {};
 
 export const NoCloseBtn = TemplateNoCloseBtn.bind({});

@@ -1,10 +1,29 @@
 import IconMenu from "./IconMenu.vue";
 
 export default {
-  title: "Howie/Icon",
+  title: "Howie/Icon/Menu",
   component: IconMenu,
   argTypes: {
-    menuHandle: { action: "menuHandle" },
+    size: {
+      description: "The icon width & height.",
+      table: {
+        type: {
+          detail: "px",
+        },
+      },
+    },
+    mainColor: {
+      description: "The symbol color.",
+    },
+    menuHandle: {
+      description: "Click events to change status.",
+      table: {
+        type: {
+          summary: "function",
+        },
+      },
+      action: "menuHandle",
+    },
   },
 };
 

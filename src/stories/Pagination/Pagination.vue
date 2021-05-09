@@ -144,8 +144,8 @@ export default Vue.extend({
           array.push(i);
         }
       }
-      this.showPrevMore = showPrevMore;
-      this.showNextMore = showNextMore;
+      this.moreHandle("showPrevMore", showPrevMore);
+      this.moreHandle("showNextMore", showNextMore);
       return array;
     },
     disabledPrev() {
@@ -230,6 +230,9 @@ export default Vue.extend({
       } else if (direction < 0 && this.currentPage !== 1) {
         this.$emit("changePage", --this.currentPage);
       }
+    },
+    moreHandle(target, status) {
+      this[target] = status;
     },
   },
 });

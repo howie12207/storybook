@@ -4,9 +4,42 @@ import BaseButton from "../BaseButton/BaseButton.vue";
 export default {
   title: "Howie/BaseTable",
   component: BaseTable,
+  argTypes: {
+    listTitles: {
+      description: "Provide table head.",
+      table: {
+        type: {
+          detail: `label & key are required.
+1. label for table head.
+2. key correspond to list data.
+3. type to format value.
+(1) thousand
+(2) date
+(3) time
+(4) slot
+          `,
+        },
+      },
+    },
+    listData: {
+      description: "Provide list data.",
+    },
+    fixedHead: {
+      description: "Fixed head and set table height.",
+    },
+    default: {
+      description: "Custom content.",
+      table: {
+        type: {
+          summary: "slot",
+          detail: "<template #key='thisData'>{{thisData}}</template>",
+        },
+      },
+    },
+  },
 };
 
-const Template = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseTable },
   template: `<base-table v-bind="$props" />`,
@@ -18,19 +51,19 @@ const TemplateSlot = (args, { argTypes }) => ({
   template: `<div>
     <base-table v-bind="$props">
       <template #operation="thisData">
-        <BaseButton text="刪除" />
+        <BaseButton label="刪除" />
       </template>
     </base-table>
   </div>`,
 });
 
-export const Custom = Template.bind({});
+export const Custom = TemplateCustom.bind({});
 Custom.args = {
   listTitles: [
-    { key: "日期", value: "date" },
-    { key: "標題", value: "title" },
-    { key: "內容", value: "content" },
-    { key: "留言數", value: "comment" },
+    { label: "日期", key: "date" },
+    { label: "標題", key: "title" },
+    { label: "內容", key: "content" },
+    { label: "留言數", key: "comment" },
   ],
   listData: [
     {
@@ -60,13 +93,13 @@ Custom.args = {
   ],
 };
 
-export const FixedHead = Template.bind({});
+export const FixedHead = TemplateCustom.bind({});
 FixedHead.args = {
   listTitles: [
-    { key: "日期", value: "date" },
-    { key: "標題", value: "title" },
-    { key: "內容", value: "content" },
-    { key: "留言數", value: "comment" },
+    { label: "日期", key: "date" },
+    { label: "標題", key: "title" },
+    { label: "內容", key: "content" },
+    { label: "留言數", key: "comment" },
   ],
   listData: [
     {
@@ -145,13 +178,13 @@ FixedHead.args = {
   fixedHead: "300px",
 };
 
-export const Format = Template.bind({});
+export const Format = TemplateCustom.bind({});
 Format.args = {
   listTitles: [
-    { key: "日期", value: "date", type: "date" },
-    { key: "標題", value: "title" },
-    { key: "內容", value: "content" },
-    { key: "留言數", value: "comment", type: "thousand" },
+    { label: "日期", key: "date", type: "date" },
+    { label: "標題", key: "title" },
+    { label: "內容", key: "content" },
+    { label: "留言數", key: "comment", type: "thousand" },
   ],
   listData: [
     {
@@ -181,13 +214,13 @@ Format.args = {
   ],
 };
 
-export const LimitWidth = Template.bind({});
+export const LimitWidth = TemplateCustom.bind({});
 LimitWidth.args = {
   listTitles: [
-    { key: "日期", value: "date", width: "120px" },
-    { key: "標題", value: "title" },
-    { key: "內容", value: "content" },
-    { key: "留言數", value: "comment" },
+    { label: "日期", key: "date", width: "120px" },
+    { label: "標題", key: "title" },
+    { label: "內容", key: "content" },
+    { label: "留言數", key: "comment" },
   ],
   listData: [
     {
@@ -220,11 +253,11 @@ LimitWidth.args = {
 export const Slot = TemplateSlot.bind({});
 Slot.args = {
   listTitles: [
-    { key: "日期", value: "date", width: "120px" },
-    { key: "標題", value: "title" },
-    { key: "內容", value: "content" },
-    { key: "留言數", value: "comment" },
-    { key: "操作", type: "slot", name: "operation" },
+    { label: "日期", key: "date", width: "120px" },
+    { label: "標題", key: "title" },
+    { label: "內容", key: "content" },
+    { label: "留言數", key: "comment" },
+    { label: "操作", key: "operation", type: "slot" },
   ],
   listData: [
     {
@@ -254,13 +287,13 @@ Slot.args = {
   ],
 };
 
-export const Empty = Template.bind({});
+export const Empty = TemplateCustom.bind({});
 Empty.args = {
   listTitles: [
-    { key: "日期", value: "date" },
-    { key: "標題", value: "title" },
-    { key: "內容", value: "content" },
-    { key: "留言數", value: "comment" },
+    { label: "日期", key: "date" },
+    { label: "標題", key: "title" },
+    { label: "內容", key: "content" },
+    { label: "留言數", key: "comment" },
   ],
   listData: [],
 };

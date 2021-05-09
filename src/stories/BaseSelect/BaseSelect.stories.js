@@ -3,14 +3,51 @@ import BaseSelect from "./BaseSelect.vue";
 export default {
   title: "Howie/BaseSelect",
   component: BaseSelect,
-  argTypes: {},
+  argTypes: {
+    options: {
+      description: "Provide options to select.",
+      table: {
+        type: {
+          detail: "label & value are required.",
+        },
+      },
+    },
+    placeholder: {
+      description: "Show placeholder to tips.",
+    },
+    width: {
+      description: "The section's width.",
+    },
+    mainColor: {
+      description: "The section's border color.",
+    },
+    bgColor: {
+      description: "The section's background color.",
+    },
+    textColor: {
+      description: "The section's text color.",
+    },
+    hoverColor: {
+      description: "The option's hover color.",
+    },
+    value: {
+      description: "Use v-model to define value.",
+      table: {
+        category: "Not operate manually",
+      },
+    },
+    input: {
+      description: "The select's input event.",
+      action: "input",
+    },
+  },
 };
 
-const TemplateBase = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseSelect },
   template: `
-      <base-select v-bind="$props" v-model="selected" />
+      <base-select v-bind="$props" v-model="selected" @input="input" />
    `,
   data() {
     return {
@@ -19,8 +56,8 @@ const TemplateBase = (args, { argTypes }) => ({
   },
 });
 
-export const Base = TemplateBase.bind({});
-Base.args = {
+export const Custom = TemplateCustom.bind({});
+Custom.args = {
   options: [
     { label: "蘋果", value: "apple" },
     { label: "香蕉", value: "banana" },

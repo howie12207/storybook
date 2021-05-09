@@ -1,73 +1,76 @@
 import Pagination from "./Pagination.vue";
-// import { action } from "@storybook/addon-actions";
 
 export default {
   title: "Howie/Pagination",
   component: Pagination,
   argTypes: {
-    changePage: { action: "changePage" },
-    changeSize: { action: "changeSize" },
+    total: {
+      description: "Data total amount.",
+    },
+    mainColor: {
+      description: "The main color.",
+    },
+    bg: {
+      description: "Define whether using background color or not.",
+    },
+    layout: {
+      description: "Define the pagination layout.",
+      table: {
+        type: {
+          detail: "total, size, pager, jumper",
+        },
+      },
+    },
+    sizeOptions: {
+      description: "Define size options to select.",
+    },
+    disabled: {
+      description: "Define status whether disabled or not.",
+    },
+    changePage: {
+      description: "Change page event.",
+      table: {
+        type: {
+          summary: "function",
+        },
+      },
+      action: "changePage",
+    },
+    changeSize: {
+      description: "Change size event.",
+      table: {
+        type: {
+          summary: "function",
+        },
+      },
+      action: "changeSize",
+    },
   },
 };
 
-const Template = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Pagination },
   template:
     '<pagination v-bind="$props" @changeSize="changeSize" @changePage="changePage" />',
-  // props: {
-  //   size: {
-  //     type: Number,
-  //     default: 10,
-  //   },
-  //   currentPage: {
-  //     type: Number,
-  //     default: 1,
-  //   },
-  //   total: {
-  //     type: Number,
-  //     default: 0,
-  //   },
-  //   changePage: {
-  //     type: Function,
-  //     default: () => {
-  //       console.log("123");
-  //     },
-  //   },
-  //   changeSize: {
-  //     type: Function,
-  //     default: () => {},
-  //   },
-  // },
-  // methods: {
-  //   changePage: action("changePage"),
-  //   changeSize: action("changeSize"),
-  // },
-  // },
-  // computed: {
-  //   test() {
-  //     const { currentPage, ...all } = this.$props;
-  //     return all;
-  //   },
-  // },
 });
 
-export const All = Template.bind({});
-All.args = {
+export const Custom = TemplateCustom.bind({});
+Custom.args = {
   total: 100,
   layout: ["total", "size", "pager", "jumper"],
   mainColor: "#60A5FA",
   bg: true,
 };
 
-export const Size = Template.bind({});
+export const Size = TemplateCustom.bind({});
 Size.args = {
   total: 100,
   layout: ["size", "pager"],
   mainColor: "#DC2626",
 };
 
-export const Pager = Template.bind({});
+export const Pager = TemplateCustom.bind({});
 Pager.args = {
   total: 100,
   layout: ["pager"],

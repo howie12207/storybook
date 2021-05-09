@@ -1,8 +1,27 @@
 import IconInfo from "./IconInfo.vue";
 
 export default {
-  title: "Howie/Icon",
+  title: "Howie/Icon/Info",
   component: IconInfo,
+  argTypes: {
+    size: {
+      description: "The icon width & height.",
+      table: {
+        type: {
+          detail: "px",
+        },
+      },
+    },
+    mainColor: {
+      description: "The symbol color.",
+    },
+    borderColor: {
+      description: "The border color.",
+    },
+    bgColor: {
+      description: "The background color.",
+    },
+  },
 };
 
 const Template = (args, { argTypes }) => ({

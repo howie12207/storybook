@@ -3,13 +3,36 @@ import Carousel from "./Carousel.vue";
 export default {
   title: "Howie/Carousel",
   component: Carousel,
-  argTypes: {},
+  argTypes: {
+    displayNum: {
+      description: "Define how many picture show.",
+    },
+    imgs: {
+      description: "Provide image list",
+      table: {
+        type: {
+          detail: `id & src are required.
+1. id is the unqiue index.
+2. src is the image source.
+          `,
+        },
+      },
+    },
+    auto: {
+      description: "Set auto running time.",
+      table: {
+        type: {
+          detail: "millisecond",
+        },
+      },
+    },
+  },
 };
 
-const Template = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Carousel },
-  template: '<carousel :display-num="displayNum" :imgs="imgs" />',
+  template: '<carousel v-bind="$props" />',
 });
 
 const TemplateAuto = (args, { argTypes }) => ({
@@ -18,7 +41,7 @@ const TemplateAuto = (args, { argTypes }) => ({
   template: '<carousel v-bind="$props" />',
 });
 
-export const Custom = Template.bind({});
+export const Custom = TemplateCustom.bind({});
 Custom.args = {
   displayNum: 5,
   imgs: [

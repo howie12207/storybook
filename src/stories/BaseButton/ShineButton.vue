@@ -1,6 +1,6 @@
 <template>
-  <button :style="style" class="shine_button">
-    {{ text }}
+  <button :style="style" class="shine_button" @click="clickHandle">
+    {{ label }}
   </button>
 </template>
 
@@ -9,16 +9,17 @@ import Vue from "vue";
 export default Vue.extend({
   name: "BaseButton",
   props: {
-    text: {
+    label: {
       type: String,
       default: "Button",
+      required: true,
     },
-    defaultColor: {
+    mainColor: {
       type: String,
       default: "currentColor",
     },
 
-    mainColor: {
+    hoverColor: {
       type: String,
       default: "#10b981",
     },
@@ -26,9 +27,14 @@ export default Vue.extend({
   computed: {
     style() {
       return {
-        "--mainColor": this.mainColor,
-        "--defaultColor": this.defaultColor,
+        "--buttonMainColor": this.mainColor,
+        "--buttonHoverColor": this.hoverColor,
       };
+    },
+  },
+  methods: {
+    clickHandle() {
+      this.$emit("click");
     },
   },
 });
@@ -43,10 +49,10 @@ export default Vue.extend({
   font-size: 16px;
   position: relative;
   padding: 4px 16px;
-  border-radius: 3px;
+  border-radius: 4px;
   background-color: transparent;
-  border: 1px solid var(--defaultColor);
-  color: var(--defaultColor);
+  border: 1px solid var(--buttonMainColor);
+  color: var(--buttonMainColor);
   transition: 0.4s;
   cursor: pointer;
 }
@@ -56,7 +62,7 @@ export default Vue.extend({
   content: "";
   border-style: solid;
   position: absolute;
-  border-color: var(--mainColor);
+  border-color: var(--buttonHoverColor);
   z-index: 1;
   border-radius: 3px;
   box-sizing: content-box;
@@ -79,7 +85,7 @@ export default Vue.extend({
 }
 
 .shine_button:hover {
-  color: var(--mainColor);
+  color: var(--buttonHoverColor);
 }
 .shine_button:hover:before {
   width: 100%;

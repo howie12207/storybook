@@ -8,7 +8,7 @@
   >
     <slot></slot>
     <transition name="fade">
-      <div v-show="show" class="tooltips_popup">{{ text }}</div>
+      <div v-show="show" class="tooltips_popup">{{ label }}</div>
     </transition>
   </div>
 </template>
@@ -19,7 +19,7 @@ import Vue from "vue";
 export default Vue.extend({
   name: "Tooltips",
   props: {
-    text: {
+    label: {
       type: String,
       default: "",
     },

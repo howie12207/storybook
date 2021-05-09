@@ -13,6 +13,7 @@ export default Vue.extend({
     content: {
       type: Array,
       default: () => [],
+      required: true,
     },
     color: {
       type: String,

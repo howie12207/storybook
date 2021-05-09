@@ -13,7 +13,7 @@
                 maxWidth: head.width,
               }"
             >
-              {{ head.key }}
+              {{ head.label }}
             </th>
           </tr>
         </thead>
@@ -22,7 +22,7 @@
             <td v-for="(item, i) of listTitles" :key="i">
               <!-- 客製化 slot -->
               <template v-if="item.type === 'slot'">
-                <slot :name="item.name" :this-data="rowData"></slot>
+                <slot :name="item.key" :this-data="rowData"></slot>
               </template>
               <!-- 序號 -->
               <!-- <template v-else-if="item.type === 'index'">{{
@@ -30,18 +30,18 @@
               }}</template> -->
               <!-- 千分位 -->
               <template v-else-if="item.type === 'thousand'">{{
-                toThousand(rowData[item.value])
+                toThousand(rowData[item.key])
               }}</template>
               <!-- 日期 -->
               <template v-else-if="item.type === 'date'">{{
-                toDate(rowData[item.value])
+                toDate(rowData[item.key])
               }}</template>
               <!-- 時間 -->
               <template v-else-if="item.type === 'time'">{{
-                toDateTime(rowData[item.value])
+                toDateTime(rowData[item.key])
               }}</template>
               <!-- 沒特殊需求 -->
-              <template v-else>{{ rowData[item.value] }}</template>
+              <template v-else>{{ rowData[item.key] }}</template>
             </td>
           </tr>
         </tbody>
@@ -64,6 +64,7 @@ export default Vue.extend({
     listTitles: {
       type: Array,
       default: () => [],
+      required: true,
     },
     listData: {
       type: Array,

@@ -20,10 +20,6 @@ export default Vue.extend({
       type: Number,
       default: 3000,
     },
-    autoplay: {
-      type: Boolean,
-      default: true,
-    },
     decimals: {
       type: Number,
       default: 0,
@@ -48,6 +44,10 @@ export default Vue.extend({
       default: "",
     },
     useEasing: {
+      type: Boolean,
+      default: true,
+    },
+    autoplay: {
       type: Boolean,
       default: true,
     },

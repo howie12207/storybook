@@ -1,13 +1,33 @@
 import IconChevron from "./IconChevron.vue";
 
 export default {
-  title: "Howie/Icon",
+  title: "Howie/Icon/Chevron",
   component: IconChevron,
-  // argTypes: {
-  //   direction: {
-  //     control: { type: "select", options: ["left", "top", "right", "bottom"] },
-  //   },
-  // },
+  argTypes: {
+    size: {
+      description: "The icon width & height.",
+      table: {
+        type: {
+          detail: "px",
+        },
+      },
+    },
+    mainColor: {
+      description: "The symbol color.",
+    },
+    lineWidth: {
+      description: "The symbol lineWidth.",
+    },
+    direction: {
+      description: "The chevron direction.",
+      control: { type: "select", options: ["left", "top", "right", "bottom"] },
+      table: {
+        type: {
+          detail: "left, top, right, bottom",
+        },
+      },
+    },
+  },
 };
 
 const TemplateChevron = (args, { argTypes }) => ({

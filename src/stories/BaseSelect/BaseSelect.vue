@@ -1,7 +1,7 @@
 <template>
   <div :style="style" :class="['base_select', { open }]" @blur="blurHandle">
     <div class="select_header" @click="openHandle">
-      {{ selectedLabel || "請選擇" }}
+      {{ selectedLabel || placeholder }}
       <IconChevron direction="bottom" :size="16" />
     </div>
     <div class="options">
@@ -25,6 +25,10 @@ export default Vue.extend({
   name: "BaseSelect",
   components: { IconChevron },
   props: {
+    value: {
+      type: String,
+      required: true,
+    },
     options: {
       type: Array,
       required: true,
@@ -49,9 +53,9 @@ export default Vue.extend({
       type: String,
       default: "100%",
     },
-    value: {
+    placeholder: {
       type: String,
-      required: true,
+      default: "請選擇",
     },
   },
   data() {

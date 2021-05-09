@@ -4,18 +4,43 @@ export default {
   title: "Howie/Tabs",
   component: Tabs,
   argTypes: {
-    tabHandle: { action: "tabHandle" },
+    tabs: {
+      description: "The list of tabs.",
+      table: {
+        type: {
+          detail: `label & value are required.
+1. label for tab text.
+2. value for tab value. 
+          `,
+        },
+      },
+    },
+    mainColor: {
+      description: "The main color.",
+    },
+    width: {
+      description: "Setting each tab fixed width.",
+    },
+    tabHandle: {
+      description: "Tab click events.",
+      table: {
+        type: {
+          summary: "function",
+        },
+      },
+      action: "tabHandle",
+    },
   },
 };
 
-const Template = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Tabs },
   template: '<Tabs v-bind="$props" @tabHandle="tabHandle" />',
 });
 
-export const Base = Template.bind({});
-Base.args = {
+export const Custom = TemplateCustom.bind({});
+Custom.args = {
   tabs: [
     { label: "最新", value: "new" },
     { label: "熱門文章", value: "hot" },
@@ -24,7 +49,7 @@ Base.args = {
   ],
 };
 
-export const FixedWidth = Template.bind({});
+export const FixedWidth = TemplateCustom.bind({});
 FixedWidth.args = {
   tabs: [
     { label: "最新", value: "new" },

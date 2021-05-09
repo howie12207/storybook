@@ -3,9 +3,40 @@ import Expansion from "./Expansion.vue";
 export default {
   title: "Howie/Expansion",
   component: Expansion,
+  argTypes: {
+    multi: {
+      description: "Only one expand or mutiple expand.",
+    },
+    dividerColor: {
+      description: "The color between header & content border.",
+    },
+    headerColor: {
+      description: "The expand header color.",
+    },
+    gap: {
+      description: "The gap between expand item.",
+      table: {
+        type: {
+          detail: "px",
+        },
+      },
+    },
+    value: {
+      description: "Use v-model to define what's expanding.",
+      table: {
+        category: "Not operate manually",
+      },
+    },
+    id: {
+      description: "Set unique index.",
+      table: {
+        category: "Not operate manually",
+      },
+    },
+  },
 };
 
-const Template = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Expansion },
   template: `
@@ -101,7 +132,7 @@ const TemplateMulti = (args, { argTypes }) => ({
   },
 });
 
-export const Custom = Template.bind({});
+export const Custom = TemplateCustom.bind({});
 Custom.args = {};
 
 export const Focus = TemplateFocus.bind({});

@@ -58,6 +58,7 @@ export default Vue.extend({
     value: {
       type: Array,
       default: () => [],
+      required: true,
     },
   },
   computed: {
@@ -124,7 +125,7 @@ export default Vue.extend({
   cursor: pointer;
 }
 .expansion.expand.headerColor .expansion_header {
-  background: #ccc;
+  background: var(--expansionItemHeaderBg);
 }
 
 .expansion .expansion_header .icon_chevron {

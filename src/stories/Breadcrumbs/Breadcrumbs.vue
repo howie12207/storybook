@@ -3,11 +3,11 @@
     <template v-for="(item, index) of list">
       <template v-if="index !== list.length - 1 && item.path">
         <a class="breadcrumbs_item" :href="item.path" :key="index">{{
-          item.name
+          item.label
         }}</a>
         <span class="divider" :key="`${index}divider`">{{ divider }}</span>
       </template>
-      <span class="breadcrumbs_item" v-else :key="index">{{ item.name }}</span>
+      <span class="breadcrumbs_item" v-else :key="index">{{ item.label }}</span>
     </template>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default Vue.extend({
     list: {
       type: Array,
       default: () => [],
+      required: true,
     },
     mainColor: {
       type: String,

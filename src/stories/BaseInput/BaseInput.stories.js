@@ -4,21 +4,107 @@ export default {
   title: "Howie/BaseInput",
   component: BaseInput,
   argTypes: {
+    label: {
+      description: "Show label, min-width 80 px.",
+    },
+    placeholder: {
+      description: "Show placeholder to tips.",
+    },
+    rules: {
+      description: "Define verify rules.",
+      table: {
+        type: {
+          detail: `1. min with max limit min & max specify value length.
+2. atLeast limit at least specify value length.
+3. only limit only specify value length.
+4. limit within enAndNumber limit only accept english & number.
+5. limit within en limit only accept english.
+6. limit within number limit only accept number.
+7. limit within mail limit only accept mail format.
+8. isRequired within true limit the value length cannot be empty.
+          `,
+        },
+      },
+    },
+    errorMessage: {
+      description: "Define custom error message.",
+    },
+    disabled: {
+      description: "Define status whether disabled or not.",
+    },
+    type: {
+      description: "Define type of input.",
+    },
+    clearBtn: {
+      description: "Define clear btn whether show or not.",
+    },
+    multiLine: {
+      description: "Define whether using multiple line or not.",
+    },
+    upperCase: {
+      description: "Define whether convert to upper case or not.",
+    },
     custom: {
+      description: "Use different style.",
       control: { type: "select", options: ["base_input", "base_input_2"] },
+    },
+    value: {
+      description: "Use v-model to define value.",
+      table: {
+        category: "Not operate manually",
+      },
+    },
+    isValid: {
+      description: "Show verify status.",
+      table: {
+        category: "Not operate manually",
+      },
+    },
+    input: {
+      description: "The input's input event.",
+      action: "input",
+      table: {
+        type: {
+          summary: "function",
+        },
+      },
+    },
+    onKeyup: {
+      description: "The input's keyup event.",
+      action: "keyup",
+      table: {
+        type: {
+          summary: "function",
+        },
+      },
+    },
+    onBlur: {
+      description: "The element's blur event.",
+      action: "blur",
+      table: {
+        type: {
+          summary: "function",
+        },
+      },
+    },
+    "update:isValid": {
+      description: "Update verify status.",
+      table: {
+        category: "Not operate manually",
+      },
     },
   },
 };
 
-const BaseTemplate = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
-      <base-input v-bind="$props" v-model="value" :is-valid.sync="isValid" />
+      <base-input v-bind="$props" v-model="value" :is-valid.sync="isValid" @input="input" @onKeyup="onKeyup" @onBlur="onBlur" />
    `,
 });
 
-const EmailTemplate = (args, { argTypes }) => ({
+const TemplateEmail = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -26,7 +112,7 @@ const EmailTemplate = (args, { argTypes }) => ({
    `,
 });
 
-const NumberTemplate = (args, { argTypes }) => ({
+const TemplateNumber = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -34,13 +120,13 @@ const NumberTemplate = (args, { argTypes }) => ({
    `,
 });
 
-const CompareTemplate = (args, { argTypes }) => ({
+const TemplateCompare = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
     <div>
       <base-input v-bind="$props" v-model="value" :is-valid.sync="isValid" @onKeyup="compareHandle" @onBlur="compareHandle" />
-      <base-input v-bind="$props" :label="label2" :is-valid.sync="isValid2" :rules="rules2" :placeholder="placeholder2" :error-message="confirmPassword.errorMessage" v-model="confirmPassword.value" @onKeyup="compareHandle" @onBlur="compareHandle" />
+      <base-input v-bind="$props" :label="label2" :is-valid.sync="confirmPassword.isValid" :rules="rules2" :placeholder="placeholder2" :error-message="confirmPassword.errorMessage" v-model="confirmPassword.value" @onKeyup="compareHandle" @onBlur="compareHandle" />
     </div>
    `,
   data() {
@@ -65,7 +151,7 @@ const CompareTemplate = (args, { argTypes }) => ({
   },
 });
 
-const UpperCaseTemplate = (args, { argTypes }) => ({
+const TemplateUpperCase = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -73,7 +159,7 @@ const UpperCaseTemplate = (args, { argTypes }) => ({
    `,
 });
 
-const NotRequiredTemplate = (args, { argTypes }) => ({
+const TemplateNotRequired = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -81,7 +167,7 @@ const NotRequiredTemplate = (args, { argTypes }) => ({
    `,
 });
 
-const NoLabelTemplate = (args, { argTypes }) => ({
+const TemplateNoLabel = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -89,7 +175,7 @@ const NoLabelTemplate = (args, { argTypes }) => ({
    `,
 });
 
-const MultiLineTemplate = (args, { argTypes }) => ({
+const TemplateMultiLine = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -97,7 +183,7 @@ const MultiLineTemplate = (args, { argTypes }) => ({
    `,
 });
 
-const SecondStyleTemplate = (args, { argTypes }) => ({
+const TemplateSecondStyle = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -105,8 +191,8 @@ const SecondStyleTemplate = (args, { argTypes }) => ({
    `,
 });
 
-export const Base = BaseTemplate.bind({});
-Base.args = {
+export const Custom = TemplateCustom.bind({});
+Custom.args = {
   label: "帳號",
   placeholder: "請輸入帳號",
   rules: {
@@ -115,7 +201,7 @@ Base.args = {
   },
 };
 
-export const Email = EmailTemplate.bind({});
+export const Email = TemplateEmail.bind({});
 Email.args = {
   label: "信箱",
   placeholder: "請輸入信箱",
@@ -124,7 +210,7 @@ Email.args = {
   },
 };
 
-export const Number = NumberTemplate.bind({});
+export const Number = TemplateNumber.bind({});
 Number.args = {
   label: "金額",
   placeholder: "請輸入金額",
@@ -134,7 +220,7 @@ Number.args = {
   },
 };
 
-export const Compare = CompareTemplate.bind({});
+export const Compare = TemplateCompare.bind({});
 Compare.args = {
   label: "密碼",
   placeholder: "請輸入密碼",
@@ -152,25 +238,25 @@ Compare.args = {
   },
 };
 
-export const UpperCase = UpperCaseTemplate.bind({});
+export const UpperCase = TemplateUpperCase.bind({});
 UpperCase.args = {
   label: "英文名",
 };
 
-export const NotRequired = NotRequiredTemplate.bind({});
+export const NotRequired = TemplateNotRequired.bind({});
 NotRequired.args = {
   label: "Line",
 };
 
-export const NoLabel = NoLabelTemplate.bind({});
+export const NoLabel = TemplateNoLabel.bind({});
 NoLabel.args = {};
 
-export const MultiLine = MultiLineTemplate.bind({});
+export const MultiLine = TemplateMultiLine.bind({});
 MultiLine.args = {
   label: "帳號",
 };
 
-export const SecondStyle = SecondStyleTemplate.bind({});
+export const SecondStyle = TemplateSecondStyle.bind({});
 SecondStyle.args = {
   label: "帳號",
   custom: "base_input_2",

@@ -4,7 +4,42 @@ export default {
   title: "Howie/Tooltips",
   component: Tooltips,
   argTypes: {
+    label: {
+      description: "The tooltips text.",
+    },
+    textColor: {
+      description: "The text color.",
+    },
+    bgColor: {
+      description: "The background color.",
+    },
+    gap: {
+      description: "The gap between text to tooltips.",
+      table: {
+        type: {
+          detail: "px",
+        },
+      },
+    },
     location: {
+      description: "The tooltips location.",
+      table: {
+        type: {
+          detail: `1. left
+2. left-top
+3. left-bottom
+4. top
+5. top-left
+6. top-right
+7. right
+8. right-top
+9. right-bottom
+10. bottom
+11. bottom-left
+12. bottom-right
+          `,
+        },
+      },
       control: {
         type: "select",
         options: [
@@ -26,15 +61,15 @@ export default {
   },
 };
 
-const Template = (args, { argTypes }) => ({
+const TemplateCustom = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Tooltips },
   template:
-    '<div style="padding:40px;"><tooltips :text="text" :bg-color="bgColor" :text-color="textColor" :location="location" :gap="gap" ><span>{{ displayText }}</span></tooltips></div>',
+    '<div style="padding:40px;"><tooltips :label="label" :bg-color="bgColor" :text-color="textColor" :location="location" :gap="gap" ><span>{{ displayText }}</span></tooltips></div>',
 });
 
-export const Custom = Template.bind({});
+export const Custom = TemplateCustom.bind({});
 Custom.args = {
-  text: "解釋",
+  label: "解釋",
   displayText: "示範文字",
 };
