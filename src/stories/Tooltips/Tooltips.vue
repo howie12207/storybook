@@ -99,17 +99,17 @@ export default Vue.extend({
 
 /* 下 */
 .tooltips.bottom .tooltips_popup {
-  bottom: var(--tooltipsGap);
+  bottom: calc(var(--tooltipsGap) - 8px);
   left: 50%;
   transform: translate(-50%, 100%);
 }
 .tooltips.bottom-left .tooltips_popup {
-  bottom: var(--tooltipsGap);
+  bottom: calc(var(--tooltipsGap) - 8px);
   left: 0;
   transform: translateY(100%);
 }
 .tooltips.bottom-right .tooltips_popup {
-  bottom: var(--tooltipsGap);
+  bottom: calc(var(--tooltipsGap) - 8px);
   right: 0;
   transform: translateY(100%);
 }
@@ -137,17 +137,17 @@ export default Vue.extend({
 
 /* 上 */
 .tooltips.top .tooltips_popup {
-  top: var(--tooltipsGap);
+  top: calc(var(--tooltipsGap) - 8px);
   left: 50%;
   transform: translate(-50%, -100%);
 }
 .tooltips.top-left .tooltips_popup {
-  top: var(--tooltipsGap);
+  top: calc(var(--tooltipsGap) - 8px);
   left: 0;
   transform: translateY(-100%);
 }
 .tooltips.top-right .tooltips_popup {
-  top: var(--tooltipsGap);
+  top: calc(var(--tooltipsGap) - 8px);
   right: 0;
   transform: translateY(-100%);
 }
@@ -175,17 +175,17 @@ export default Vue.extend({
 
 /* 右 */
 .tooltips.right .tooltips_popup {
-  right: var(--tooltipsGap);
+  right: calc(var(--tooltipsGap) - 8px);
   top: 50%;
   transform: translate(100%, -50%);
 }
 .tooltips.right-top .tooltips_popup {
-  right: var(--tooltipsGap);
+  right: calc(var(--tooltipsGap) - 8px);
   top: 0;
   transform: translateX(100%);
 }
 .tooltips.right-bottom .tooltips_popup {
-  right: var(--tooltipsGap);
+  right: calc(var(--tooltipsGap) - 8px);
   bottom: 0;
   transform: translateX(100%);
 }
@@ -203,17 +203,17 @@ export default Vue.extend({
 
 /* 左 */
 .tooltips.left .tooltips_popup {
-  left: var(--tooltipsGap);
+  left: calc(var(--tooltipsGap) - 8px);
   top: 50%;
   transform: translate(-100%, -50%);
 }
 .tooltips.left-top .tooltips_popup {
-  left: var(--tooltipsGap);
+  left: calc(var(--tooltipsGap) - 8px);
   top: 0;
   transform: translateX(-100%);
 }
 .tooltips.left-bottom .tooltips_popup {
-  left: var(--tooltipsGap);
+  left: calc(var(--tooltipsGap) - 8px);
   bottom: 0;
   transform: translateX(-100%);
 }
