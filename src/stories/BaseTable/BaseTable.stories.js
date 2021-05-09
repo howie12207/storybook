@@ -31,7 +31,7 @@ export default {
       description: "Custom content.",
       table: {
         type: {
-          summary: "slot",
+          summary: "slot:[key]",
           detail: "<template #key='thisData'>{{thisData}}</template>",
         },
       },

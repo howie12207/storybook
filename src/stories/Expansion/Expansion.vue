@@ -4,22 +4,15 @@
     :class="[
       'expansion',
       { expand: active },
-      { headerColor },
-      { dividerColor },
+      { header_color: headerColor },
+      { divider_color: dividerColor },
     ]"
   >
     <div class="expansion_header" @click="expandHandle(id, multi)">
       <slot name="header"></slot><IconChevron direction="bottom" />
     </div>
     <ExpandTransition>
-      <div
-        v-show="active"
-        class="expansion_content"
-        :style="{
-          padding: '16px 24px',
-          paddingTop: this.headerColor || this.dividerColor ? '16px' : '0px',
-        }"
-      >
+      <div v-show="active" class="expansion_content" :style="{}">
         <slot name="content"></slot>
       </div>
     </ExpandTransition>
@@ -110,6 +103,7 @@ export default Vue.extend({
   margin: var(--expansionItemGap) 0;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding-bottom: 16px;
 }
 .expansion.expand:first-child {
   margin: 0 0 var(--expansionItemGap) 0;
@@ -124,7 +118,7 @@ export default Vue.extend({
   align-items: center;
   cursor: pointer;
 }
-.expansion.expand.headerColor .expansion_header {
+.expansion.expand.header_color .expansion_header {
   background: var(--expansionItemHeaderBg);
 }
 
@@ -136,7 +130,15 @@ export default Vue.extend({
   transform: rotate(-180deg);
 }
 
-.expansion.expand.dividerColor .expansion_content {
+.expansion_content {
+  padding: 0 24px;
+}
+
+.expansion.expand.divider_color .expansion_content {
   border-top: 1px solid var(--expansionItemDividerColor);
+}
+.expansion.expand.divider_color .expansion_content,
+.expansion.expand.header_color .expansion_content {
+  padding-top: 16px;
 }
 </style>

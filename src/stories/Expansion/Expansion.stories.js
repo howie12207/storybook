@@ -21,6 +21,22 @@ export default {
         },
       },
     },
+    header: {
+      description: "Set header title.",
+      table: {
+        type: {
+          summary: "slot:header",
+        },
+      },
+    },
+    content: {
+      description: "Set content when expanding.",
+      table: {
+        type: {
+          summary: "slot:header",
+        },
+      },
+    },
     value: {
       description: "Use v-model to define what's expanding.",
       table: {
@@ -133,7 +149,9 @@ const TemplateMulti = (args, { argTypes }) => ({
 });
 
 export const Custom = TemplateCustom.bind({});
-Custom.args = {};
+Custom.args = {
+  gap: 8,
+};
 
 export const Focus = TemplateFocus.bind({});
 Focus.args = {
@@ -150,4 +168,5 @@ Divider.args = {
 export const Multi = TemplateMulti.bind({});
 Multi.args = {
   multi: true,
+  gap: 8,
 };
