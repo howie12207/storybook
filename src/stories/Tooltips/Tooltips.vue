@@ -34,6 +34,22 @@ export default Vue.extend({
     location: {
       type: String,
       default: "bottom",
+      validator: (value) => {
+        return [
+          "left",
+          "left-top",
+          "left-bottom",
+          "top",
+          "top-left",
+          "top-right",
+          "right",
+          "right-top",
+          "right-bottom",
+          "bottom",
+          "bottom-left",
+          "bottom-right",
+        ].includes(value);
+      },
     },
     gap: {
       type: Number,
@@ -89,7 +105,7 @@ export default Vue.extend({
 }
 
 /* 三角形 */
-.tooltips .tooltips_popup:before {
+.tooltips .tooltips_popup::before {
   content: "";
   position: absolute;
   width: 0;
@@ -115,20 +131,20 @@ export default Vue.extend({
 }
 
 /* 三角形 下 */
-.tooltips.bottom .tooltips_popup:before {
+.tooltips.bottom .tooltips_popup::before {
   top: -8px;
   left: 50%;
   transform: translateX(-50%);
   border-width: 0 8px 8px 8px;
   border-color: transparent transparent var(--tooltipsBgColor) transparent;
 }
-.tooltips.bottom-left .tooltips_popup:before {
+.tooltips.bottom-left .tooltips_popup::before {
   top: -8px;
   left: 8px;
   border-width: 0 8px 8px 8px;
   border-color: transparent transparent var(--tooltipsBgColor) transparent;
 }
-.tooltips.bottom-right .tooltips_popup:before {
+.tooltips.bottom-right .tooltips_popup::before {
   top: -8px;
   right: 8px;
   border-width: 0 8px 8px 8px;
@@ -153,20 +169,20 @@ export default Vue.extend({
 }
 
 /* 三角形 上 */
-.tooltips.top .tooltips_popup:before {
+.tooltips.top .tooltips_popup::before {
   bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
   border-width: 8px 8px 0 8px;
   border-color: var(--tooltipsBgColor) transparent transparent transparent;
 }
-.tooltips.top-left .tooltips_popup:before {
+.tooltips.top-left .tooltips_popup::before {
   bottom: -8px;
   left: 8px;
   border-width: 8px 8px 0 8px;
   border-color: var(--tooltipsBgColor) transparent transparent transparent;
 }
-.tooltips.top-right .tooltips_popup:before {
+.tooltips.top-right .tooltips_popup::before {
   bottom: -8px;
   right: 8px;
   border-width: 8px 8px 0 8px;
@@ -191,9 +207,9 @@ export default Vue.extend({
 }
 
 /* 三角形 右 */
-.tooltips.right .tooltips_popup:before,
-.tooltips.right-top .tooltips_popup:before,
-.tooltips.right-bottom .tooltips_popup:before {
+.tooltips.right .tooltips_popup::before,
+.tooltips.right-top .tooltips_popup::before,
+.tooltips.right-bottom .tooltips_popup::before {
   left: -8px;
   top: 50%;
   transform: translateY(-50%);
@@ -219,9 +235,9 @@ export default Vue.extend({
 }
 
 /* 三角形 左 */
-.tooltips.left .tooltips_popup:before,
-.tooltips.left-top .tooltips_popup:before,
-.tooltips.left-bottom .tooltips_popup:before {
+.tooltips.left .tooltips_popup::before,
+.tooltips.left-top .tooltips_popup::before,
+.tooltips.left-bottom .tooltips_popup::before {
   right: -8px;
   top: 50%;
   transform: translateY(-50%);

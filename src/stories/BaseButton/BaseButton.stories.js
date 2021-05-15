@@ -29,7 +29,7 @@ export default {
   },
 };
 
-const TemplateBase = (args, { argTypes }) => ({
+const TemplateBase = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseButton },
   template: '<base-button v-bind="$props" @click="click" />',

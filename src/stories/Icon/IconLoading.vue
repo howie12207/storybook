@@ -57,7 +57,7 @@ export default Vue.extend({
   transform-origin: calc(var(--loadingSize) / 2) calc(var(--loadingSize) / 2);
   animation: spin 1.2s linear infinite;
 }
-.icon_loading div:after {
+.icon_loading div::after {
   content: " ";
   display: block;
   position: absolute;

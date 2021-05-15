@@ -2,7 +2,7 @@
   <div :style="style" class="switch_section">
     <label v-if="leftLabel" class="switch_content">{{ leftLabel }}</label>
     <label class="switch_btn">
-      <input class="checkbox" v-model="syncValue" type="checkbox" />
+      <input v-model="syncValue" class="checkbox" type="checkbox" />
       <span class="slider round"></span>
     </label>
     <label v-if="rightLabel" class="switch_content">{{ rightLabel }}</label>
@@ -91,15 +91,6 @@ export default Vue.extend({
   width: 0;
   height: 0;
 }
-.switch_section .switch_btn .checkbox:checked + .slider {
-  background-color: var(--activeColor);
-}
-.switch_section .switch_btn .checkbox:focus + .slider {
-  box-shadow: 0 0 1px var(--activeColor);
-}
-.switch_section .switch_btn .checkbox:checked + .slider:before {
-  transform: translateX(calc(var(--switchWidth) - var(--switchHeight)));
-}
 .switch_section .switch_btn .slider {
   position: absolute;
   cursor: pointer;
@@ -120,10 +111,21 @@ export default Vue.extend({
   background-color: #fff;
   transition: 0.4s;
 }
+
+.switch_section .switch_btn .checkbox:checked + .slider {
+  background-color: var(--activeColor);
+}
+.switch_section .switch_btn .checkbox:focus + .slider {
+  box-shadow: 0 0 1px var(--activeColor);
+}
+.switch_section .switch_btn .checkbox:checked + .slider::before {
+  transform: translateX(calc(var(--switchWidth) - var(--switchHeight)));
+}
+
 .switch_section .switch_btn .slider.round {
   border-radius: var(--switchHeight);
 }
-.switch_section .switch_btn .slider.round:before {
+.switch_section .switch_btn .slider.round::before {
   border-radius: 50%;
 }
 </style>

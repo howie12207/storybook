@@ -48,8 +48,8 @@ export default Vue.extend({
   border-radius: 50%;
   background-color: var(--addBgColor);
 }
-.icon_add:after,
-.icon_add:before {
+.icon_add::after,
+.icon_add::before {
   content: "";
   position: absolute;
   box-sizing: border-box;
@@ -60,7 +60,7 @@ export default Vue.extend({
   top: calc(var(--addSize) / 2 - 3px);
   left: calc(var(--addSize) / 4 - 2px);
 }
-.icon_add:after {
+.icon_add::after {
   width: 2px;
   height: calc(var(--addSize) / 2);
   top: calc(var(--addSize) / 4 - 2px);

@@ -51,8 +51,8 @@ export default Vue.extend({
 
 <style scoped>
 *,
-*:after,
-*:before {
+*::after,
+*::before {
   box-sizing: border-box;
 }
 .icon_arrow {
@@ -64,13 +64,13 @@ export default Vue.extend({
   border-radius: 50%;
   background-color: var(--arrowBgColor);
 }
-.icon_arrow:after,
-.icon_arrow:before {
+.icon_arrow::after,
+.icon_arrow::before {
   content: "";
   position: absolute;
   left: calc(var(--arrowSize) / 8);
 }
-.icon_arrow:after {
+.icon_arrow::after {
   width: calc(var(--arrowSize) / 3);
   height: calc(var(--arrowSize) / 3);
   border-bottom: 2px solid var(--arrowColor);
@@ -80,7 +80,7 @@ export default Vue.extend({
   left: calc(var(--arrowSize) / 8 - 1px);
   bottom: 50%;
 }
-.icon_arrow:before {
+.icon_arrow::before {
   width: calc(var(--arrowSize) - var(--arrowSize) / 4 - 2px);
   height: 2px;
   top: 50%;

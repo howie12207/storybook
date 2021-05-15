@@ -57,8 +57,8 @@ export default Vue.extend({
   cursor: pointer;
 }
 
-.shine_button:before,
-.shine_button:after {
+.shine_button::before,
+.shine_button::after {
   content: "";
   border-style: solid;
   position: absolute;
@@ -68,7 +68,7 @@ export default Vue.extend({
   box-sizing: content-box;
   transition: 0.4s;
 }
-.shine_button:before {
+.shine_button::before {
   width: 0;
   height: 100%;
   border-width: 1px 0 1px 0;
@@ -76,7 +76,7 @@ export default Vue.extend({
   left: 0;
   transition-delay: 0.05s;
 }
-.shine_button:after {
+.shine_button::after {
   width: 100%;
   height: 0;
   border-width: 0 1px 0 1px;
@@ -87,11 +87,11 @@ export default Vue.extend({
 .shine_button:hover {
   color: var(--buttonHoverColor);
 }
-.shine_button:hover:before {
+.shine_button:hover::before {
   width: 100%;
 }
 
-.shine_button:hover:after {
+.shine_button:hover::after {
   height: 100%;
 }
 </style>

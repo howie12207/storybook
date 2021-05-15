@@ -39,7 +39,7 @@ export default {
   },
 };
 
-const TemplateChevron = (args, { argTypes }) => ({
+const TemplateChevron = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { IconChevron },
   template: '<icon-chevron v-bind="$props" />',

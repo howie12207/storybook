@@ -117,6 +117,9 @@ export default Vue.extend({
     custom: {
       type: String,
       default: "base_input",
+      validator: (value) => {
+        return ["base_input", "base_input_2"].includes(value);
+      },
     },
   },
   data() {
@@ -240,6 +243,7 @@ export default Vue.extend({
   --inputFontColor: #6b7280;
   --inputTopHeight: 40px;
   --inputClearSize: 0.6;
+
   display: flex;
   flex-wrap: wrap;
   font-size: 14px;
@@ -275,10 +279,11 @@ export default Vue.extend({
   transition: 0.3s;
   outline: none;
 }
-.base_input .input_block .input_content:focus {
+
+.base_input .input_content:focus {
   border: 1px solid var(--inputFocusColor);
 }
-.base_input.error .input_block .input_content {
+.base_input.error .input_content {
   border: 1px solid var(--inputErrorColor);
 }
 
@@ -336,6 +341,7 @@ input::-webkit-inner-spin-button {
   --inputFontColor: #6b7280;
   --inputTopHeight: 40px;
   --inputClearSize: 0.6;
+
   width: 300px;
   display: flex;
   flex-wrap: wrap;
@@ -359,7 +365,7 @@ input::-webkit-inner-spin-button {
   min-width: 80px;
   position: relative;
 }
-.base_input_2 .input_label:after {
+.base_input_2 .input_label::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -374,17 +380,19 @@ input::-webkit-inner-spin-button {
   position: relative;
   border-left: none;
   border-right: 1px solid var(--inputBorderColor);
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   transition: 0.3s;
 }
-.base_input_2 .input_content {
+
+.base_input_2 .input_block .input_content {
   width: 100%;
   border: none;
   outline: none;
 }
+
 .base_input_2 .input_content.clear_btn {
   padding-right: 24px;
   border: none;

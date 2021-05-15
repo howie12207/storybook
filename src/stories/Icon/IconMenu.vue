@@ -20,13 +20,20 @@ export default Vue.extend({
       type: String,
       default: "currentColor",
     },
-  },
-  data() {
-    return {
-      active: false,
-    };
+    value: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
+    active: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit("input", value);
+      },
+    },
     style() {
       return {
         "--menuSize": `${this.size}px`,
@@ -39,7 +46,6 @@ export default Vue.extend({
   methods: {
     menuHandle() {
       this.active = !this.active;
-      this.$emit("menuHandle", this.active);
     },
   },
 });

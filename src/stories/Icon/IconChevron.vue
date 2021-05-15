@@ -55,8 +55,8 @@ export default Vue.extend({
 
 <style scoped>
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: border-box;
 }
 .icon_chevron {
@@ -68,7 +68,7 @@ export default Vue.extend({
   border-radius: 50%;
   background-color: var(--chevronBgColor);
 }
-.icon_chevron:after {
+.icon_chevron::after {
   content: "";
   position: absolute;
   border: solid var(--chevronColor);
@@ -79,13 +79,13 @@ export default Vue.extend({
   left: 50%;
   transform: translate(-25%, -50%) rotate(135deg);
 }
-.icon_chevron.top:after {
+.icon_chevron.top::after {
   transform: translate(-50%, -25%) rotate(-135deg);
 }
-.icon_chevron.right:after {
+.icon_chevron.right::after {
   transform: translate(-75%, -50%) rotate(-45deg);
 }
-.icon_chevron.bottom:after {
+.icon_chevron.bottom::after {
   transform: translate(-50%, -75%) rotate(45deg);
 }
 

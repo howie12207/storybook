@@ -52,8 +52,8 @@ export default Vue.extend({
   border-radius: 50%;
   background-color: var(--xBgColor);
 }
-.icon_x:after,
-.icon_x:before {
+.icon_x::after,
+.icon_x::before {
   content: "";
   box-sizing: border-box;
   position: absolute;
@@ -65,7 +65,7 @@ export default Vue.extend({
   top: calc(var(--xSize) / 2 - 3px);
   left: 3px;
 }
-.icon_x:after {
+.icon_x::after {
   transform: rotate(-45deg);
 }
 .icon_x.pointer {

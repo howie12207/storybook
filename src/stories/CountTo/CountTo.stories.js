@@ -42,7 +42,7 @@ export default {
   },
 };
 
-const TemplateCustom = (args, { argTypes }) => ({
+const TemplateCustom = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { CountTo },
   template: `<count-to :start-val="startVal" :end-val="endVal" :duration="duration" :autoplay="autoplay" :decimals="decimals" :decimal="decimal"

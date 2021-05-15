@@ -25,7 +25,7 @@ export default {
   },
 };
 
-const TemplateShine = (args, { argTypes }) => ({
+const TemplateShine = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { ShineButton },
   template: '<shine-button v-bind="$props" @click="click" />',

@@ -1,5 +1,5 @@
-import Popup from "./Popup.vue";
 import BaseButton from "../BaseButton/BaseButton.vue";
+import Popup from "./Popup.vue";
 
 export default {
   title: "Howie/Popup",
@@ -34,7 +34,7 @@ export default {
   },
 };
 
-const TemplateCustom = (args, { argTypes }) => ({
+const TemplateCustom = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Popup, BaseButton },
   template: `
@@ -63,7 +63,7 @@ const TemplateCustom = (args, { argTypes }) => ({
   },
 });
 
-const TemplateNotCloseOutside = (args, { argTypes }) => ({
+const TemplateNotCloseOutside = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Popup, BaseButton },
   template: `

@@ -39,13 +39,13 @@ export default {
   },
 };
 
-const TemplateCustom = (args, { argTypes }) => ({
+const TemplateCustom = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseTable },
   template: `<base-table v-bind="$props" />`,
 });
 
-const TemplateSlot = (args, { argTypes }) => ({
+const TemplateSlot = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseTable, BaseButton },
   template: `<div>

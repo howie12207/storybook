@@ -52,7 +52,7 @@ export default {
   },
 };
 
-const TemplateCustom = (args, { argTypes }) => ({
+const TemplateCustom = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Expansion },
   template: `
@@ -76,7 +76,7 @@ const TemplateCustom = (args, { argTypes }) => ({
   },
 });
 
-const TemplateFocus = (args, { argTypes }) => ({
+const TemplateFocus = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Expansion },
   template: `
@@ -100,7 +100,7 @@ const TemplateFocus = (args, { argTypes }) => ({
   },
 });
 
-const TemplateDivider = (args, { argTypes }) => ({
+const TemplateDivider = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Expansion },
   template: `
@@ -124,7 +124,7 @@ const TemplateDivider = (args, { argTypes }) => ({
   },
 });
 
-const TemplateMulti = (args, { argTypes }) => ({
+const TemplateMulti = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Expansion },
   template: `

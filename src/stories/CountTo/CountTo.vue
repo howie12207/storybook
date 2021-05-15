@@ -19,6 +19,9 @@ export default Vue.extend({
     duration: {
       type: Number,
       default: 3000,
+      validator(value) {
+        return value >= 0;
+      },
     },
     decimals: {
       type: Number,

@@ -36,7 +36,7 @@ export default {
   },
 };
 
-const TemplateArrow = (args, { argTypes }) => ({
+const TemplateArrow = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { IconArrow },
   template: '<icon-arrow v-bind="$props" />',

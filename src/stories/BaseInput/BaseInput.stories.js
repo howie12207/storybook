@@ -96,7 +96,7 @@ export default {
   },
 };
 
-const TemplateCustom = (args, { argTypes }) => ({
+const TemplateCustom = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -104,7 +104,7 @@ const TemplateCustom = (args, { argTypes }) => ({
    `,
 });
 
-const TemplateEmail = (args, { argTypes }) => ({
+const TemplateEmail = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -112,7 +112,7 @@ const TemplateEmail = (args, { argTypes }) => ({
    `,
 });
 
-const TemplateNumber = (args, { argTypes }) => ({
+const TemplateNumber = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -120,7 +120,7 @@ const TemplateNumber = (args, { argTypes }) => ({
    `,
 });
 
-const TemplateCompare = (args, { argTypes }) => ({
+const TemplateCompare = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -151,7 +151,7 @@ const TemplateCompare = (args, { argTypes }) => ({
   },
 });
 
-const TemplateUpperCase = (args, { argTypes }) => ({
+const TemplateUpperCase = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -159,7 +159,7 @@ const TemplateUpperCase = (args, { argTypes }) => ({
    `,
 });
 
-const TemplateNotRequired = (args, { argTypes }) => ({
+const TemplateNotRequired = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -167,7 +167,7 @@ const TemplateNotRequired = (args, { argTypes }) => ({
    `,
 });
 
-const TemplateNoLabel = (args, { argTypes }) => ({
+const TemplateNoLabel = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -175,7 +175,7 @@ const TemplateNoLabel = (args, { argTypes }) => ({
    `,
 });
 
-const TemplateMultiLine = (args, { argTypes }) => ({
+const TemplateMultiLine = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `
@@ -183,7 +183,7 @@ const TemplateMultiLine = (args, { argTypes }) => ({
    `,
 });
 
-const TemplateSecondStyle = (args, { argTypes }) => ({
+const TemplateSecondStyle = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseInput },
   template: `

@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
-    <div v-if="show" :style="style" class="popup_mask" @click="closeHandle">
-      <div :class="['popup_content']">
+    <div v-if="show" :style="style" class="sidebar_mask" @click="closeHandle">
+      <div :class="['sidebar_content', location]">
         <slot :closeEvent="close"></slot>
         <IconX v-if="closeBtn" pointer @click.native="close" />
       </div>
@@ -13,7 +13,7 @@ import Vue from "vue";
 import IconX from "./IconX";
 
 export default Vue.extend({
-  name: "Popup",
+  name: "Sidebar",
   components: { IconX },
   props: {
     closeOut: {
@@ -22,11 +22,18 @@ export default Vue.extend({
     },
     width: {
       type: String,
-      default: "600px",
+      default: "200px",
     },
     closeBtn: {
       type: Boolean,
       default: true,
+    },
+    location: {
+      type: String,
+      default: "left",
+      validator: (value) => {
+        return ["left", "right"].includes(value);
+      },
     },
   },
   data() {
@@ -37,7 +44,7 @@ export default Vue.extend({
   computed: {
     style() {
       return {
-        "--popupWidth": this.width,
+        "--sidebarWidth": this.width,
       };
     },
   },
@@ -47,7 +54,7 @@ export default Vue.extend({
   methods: {
     closeHandle(e) {
       if (!this.closeOut) return;
-      if (e.target.className.includes("popup_mask")) this.close();
+      if (e.target.className.includes("sidebar_mask")) this.close();
     },
     close() {
       this.$emit("close");
@@ -60,7 +67,7 @@ export default Vue.extend({
 * {
   box-sizing: border-box;
 }
-.popup_mask {
+.sidebar_mask {
   --xColor: #ef4444;
   --xSize: 1;
 
@@ -71,36 +78,53 @@ export default Vue.extend({
   height: 100vh;
   background-color: rgba(31, 41, 55, 0.7);
   z-index: 101;
+  box-sizing: border-box;
 }
-.popup_mask .popup_content {
-  width: var(--popupWidth);
+.sidebar_mask .sidebar_content {
+  width: var(--sidebarWidth);
   max-width: 100%;
+  height: 100vh;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-  padding: 24px;
-  min-height: 50px;
-  max-height: 90%;
   overflow: auto;
   background-color: #f3f4f6;
-  border-radius: 5px;
-  animation: move-down 0.5s;
 }
 
-.popup_mask .popup_content .icon_x {
+.sidebar_mask .sidebar_content.left {
+  left: 0;
+  animation: move-left 0.5s;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.sidebar_mask .sidebar_content.right {
+  right: 0;
+  animation: move-right 0.5s;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.sidebar_mask .sidebar_content.left .icon_x {
   position: absolute;
   z-index: 102;
-  top: 8px;
-  right: 8px;
+  top: 4px;
+  right: 4px;
 }
+
+.sidebar_mask .sidebar_content.right .icon_x {
+  position: absolute;
+  z-index: 102;
+  top: 4px;
+  left: 4px;
+}
+
 .fade-enter-active {
   animation: fade 0.3s ease forwards;
 }
 .fade-leave-active {
   animation: fade 0.3s ease forwards reverse;
 }
+
 @keyframes fade {
   0% {
     opacity: 0;
@@ -109,24 +133,21 @@ export default Vue.extend({
     opacity: 1;
   }
 }
-@keyframes move-down {
+@keyframes move-left {
   0% {
-    top: -100%;
-  }
-  50% {
-    top: 50%;
-  }
-  60% {
-    top: 47%;
-  }
-  80% {
-    top: 50%;
-  }
-  90% {
-    top: 49%;
+    transform: translateX(-100%);
   }
   100% {
-    top: 50%;
+    transform: translateX(0);
+  }
+}
+
+@keyframes move-right {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
   }
 }
 </style>

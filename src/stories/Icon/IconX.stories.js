@@ -27,7 +27,7 @@ export default {
   },
 };
 
-const TemplateX = (args, { argTypes }) => ({
+const TemplateX = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { IconX },
   template: '<icon-x v-bind="$props" />',

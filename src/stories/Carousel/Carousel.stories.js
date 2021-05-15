@@ -29,13 +29,13 @@ export default {
   },
 };
 
-const TemplateCustom = (args, { argTypes }) => ({
+const TemplateCustom = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Carousel },
   template: '<carousel v-bind="$props" />',
 });
 
-const TemplateAuto = (args, { argTypes }) => ({
+const TemplateAuto = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Carousel },
   template: '<carousel v-bind="$props" />',

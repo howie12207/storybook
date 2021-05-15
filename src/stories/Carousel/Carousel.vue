@@ -182,7 +182,7 @@ export default Vue.extend({
 .card_slider .icon_chevron:hover {
   opacity: 1;
 }
-.card_slider .icon_chevron:after {
+.card_slider .icon_chevron::after {
   content: "";
   position: absolute;
   box-sizing: border-box;
@@ -199,7 +199,7 @@ export default Vue.extend({
   left: initial;
   right: 16px;
 }
-.card_slider .icon_chevron.right:after {
+.card_slider .icon_chevron.right::after {
   transform: translate(-75%, -50%) rotate(-45deg);
 }
 

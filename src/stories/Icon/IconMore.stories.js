@@ -18,7 +18,7 @@ export default {
   },
 };
 
-const TemplateMore = (args, { argTypes }) => ({
+const TemplateMore = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { IconMore },
   template: '<icon-more v-bind="$props" />',

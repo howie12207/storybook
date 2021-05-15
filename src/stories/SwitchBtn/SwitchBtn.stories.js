@@ -50,7 +50,7 @@ export default {
   },
 };
 
-const TemplateCustom = (args, { argTypes }) => ({
+const TemplateCustom = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { SwitchBtn },
   template: '<switch-btn v-bind="$props" @input="input" />',
