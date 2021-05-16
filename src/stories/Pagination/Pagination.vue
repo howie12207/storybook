@@ -1,31 +1,28 @@
 <template>
   <div :style="style" :class="['pagination', { background: bg }]">
     <span v-if="layout.includes('total')" class="total">共 {{ total }} 條</span>
-    <select
+    <BaseSelect
       v-if="layout.includes('size')"
-      class="select_size"
       v-model="selectSize"
-      @change="changeSize(selectSize)"
-    >
-      <option v-for="(size, i) in sizeOptions" :key="i" :value="size">
-        {{ size }}條 / 頁
-      </option>
-    </select>
+      :options="sizeOptions"
+      class="select_size"
+      width="120px"
+    ></BaseSelect>
     <ul v-if="layout.includes('pager')" class="pager" @click="onPagerClick">
       <li
         :class="['prev_btn', { disabled: disabledPrev }]"
         @click="prevNextHandler(-1)"
       >
-        <span class="prev_btn chevron_icon"></span>
+        <span class="prev_btn icon_chevron"></span>
       </li>
       <li
-        :class="{ active: currentPage === 1, disabled }"
         v-if="pageCount > 0"
+        :class="{ active: currentPage === 1, disabled }"
         class="number"
       >
         1
       </li>
-      <li class="more quickprev" :class="[{ disabled }]" v-if="showPrevMore">
+      <li v-if="showPrevMore" class="more quickprev" :class="[{ disabled }]">
         <span class="more more_icon"></span>
       </li>
       <li
@@ -36,13 +33,13 @@
       >
         {{ pager }}
       </li>
-      <li class="more quicknext" :class="[{ disabled }]" v-if="showNextMore">
+      <li v-if="showNextMore" class="more quicknext" :class="[{ disabled }]">
         <span class="more more_icon"></span>
       </li>
       <li
+        v-if="pageCount > 1"
         :class="{ active: currentPage === pageCount, disabled }"
         class="number"
-        v-if="pageCount > 1"
       >
         {{ pageCount }}
       </li>
@@ -50,7 +47,7 @@
         :class="['next_btn', { disabled: disabledNext }]"
         @click="prevNextHandler(1)"
       >
-        <span class="next_btn chevron_icon right"></span>
+        <span class="next_btn icon_chevron right"></span>
       </li>
     </ul>
     <span v-if="layout.includes('jumper')" class="jumper"
@@ -65,8 +62,11 @@
 </template>
 <script>
 import Vue from "vue";
+import BaseSelect from "./BaseSelect";
+
 export default Vue.extend({
   name: "Pagination",
+  components: { BaseSelect },
   props: {
     total: {
       type: Number,
@@ -92,18 +92,38 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+    page: {
+      type: Number,
+      default: 0,
+    },
+    size: {
+      type: Number,
+      default: 10,
+    },
+    start: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
       showPrevMore: false,
       showNextMore: false,
-      selectSize: 10,
-      pagerCount: 7,
-      currentPage: 1,
-      size: 10,
+      pagerCount: 5,
     };
   },
   computed: {
+    currentPage() {
+      return this.page - this.start + 1;
+    },
+    selectSize: {
+      get() {
+        return this.size;
+      },
+      set(value) {
+        this.$emit("changeSize", Number(value));
+      },
+    },
     // 共幾頁
     pageCount() {
       return Math.ceil(this.total / this.selectSize);
@@ -165,8 +185,7 @@ export default Vue.extend({
           value !== this.currentPage &&
           value <= this.pageCount
         ) {
-          this.currentPage = value;
-          this.$emit("changePage", value);
+          this.$emit("changePage", value + this.start - 1);
         }
       },
     },
@@ -177,14 +196,9 @@ export default Vue.extend({
     },
   },
   methods: {
-    // 一頁顯示數量變更
-    changeSize(size) {
-      this.currentPage = 1;
-      this.$emit("changeSize", size);
-    },
     // 點頁數
     onPagerClick(event) {
-      let target = event.target;
+      const target = event.target;
       if (
         target.tagName === "UL" ||
         this.disabled ||
@@ -219,16 +233,15 @@ export default Vue.extend({
         }
       }
       if (newPage !== currentPage) {
-        this.currentPage = newPage;
-        this.$emit("changePage", newPage);
+        this.$emit("changePage", newPage + this.start - 1);
       }
     },
     // 點上下頁
     prevNextHandler(direction) {
       if (direction > 0 && this.currentPage < this.pageCount) {
-        this.$emit("changePage", ++this.currentPage);
+        this.$emit("changePage", this.page + 1);
       } else if (direction < 0 && this.currentPage !== 1) {
-        this.$emit("changePage", --this.currentPage);
+        this.$emit("changePage", this.page - 1);
       }
     },
     moreHandle(target, status) {
@@ -253,17 +266,8 @@ export default Vue.extend({
   font-size: 14px;
 }
 
-.pagination .select_size {
-  border: 1px solid #d1d5db;
-  outline: none;
-  padding: 0 16px 0 8px;
-  margin-right: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 .pagination .pager {
-  display: inline-block;
+  display: flex;
   list-style: none;
   user-select: none;
   vertical-align: top;
@@ -281,6 +285,7 @@ export default Vue.extend({
   --moreSize: 4px;
   --moreMargin: 8px;
   --morePosition: -6px;
+
   min-width: initial;
   padding: 0;
   display: inline-block;
@@ -289,51 +294,66 @@ export default Vue.extend({
   margin: 0 var(--moreMargin);
 }
 .pagination .pager .more_icon,
-.pagination .pager .more_icon:after,
-.pagination .pager .more_icon:before {
+.pagination .pager .more_icon::after,
+.pagination .pager .more_icon::before {
   box-sizing: border-box;
   width: var(--moreSize);
   height: var(--moreSize);
   background: var(--mainColor);
   border-radius: 50%;
 }
-.pagination .pager .more_icon:after,
-.pagination .pager .more_icon:before {
+.pagination .pager .more_icon::after,
+.pagination .pager .more_icon::before {
   content: "";
   position: absolute;
   top: 0;
 }
-.pagination .pager .more_icon:after {
+.pagination .pager .more_icon::after {
   left: var(--morePosition);
 }
-.pagination .pager .more_icon:before {
+.pagination .pager .more_icon::before {
   right: var(--morePosition);
 }
 
-.pagination .pager .chevron_icon {
-  box-sizing: border-box;
+.pagination .pager .prev_btn,
+.pagination .pager .next_btn {
   position: relative;
-  display: inline_block;
-  width: 22px;
-  height: 22px;
-  border: 2px solid transparent;
-  border-radius: 50%;
 }
-.pagination .pager .chevron_icon:after {
+
+.pagination .pager .icon_chevron {
+  --chevronSize: 22px;
+  --chevronColor: var(--mainColor);
+  --chevronBorderColor: transparent;
+  --chevronBgColor: transparent;
+  --chevronLineWidth: 2px;
+
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--chevronSize);
+  height: var(--chevronSize);
+  border: 1px solid var(--chevronBorderColor);
+  border-radius: 50%;
+  background-color: var(--chevronBgColor);
+}
+.pagination .pager .icon_chevron::after {
   content: "";
   position: absolute;
-  box-sizing: border-box;
-  width: 10px;
-  height: 10px;
-  border-bottom: 2px solid;
-  border-left: 2px solid;
-  transform: rotate(45deg);
-  left: -2px;
-  top: 4px;
+  border: solid var(--chevronColor);
+  border-width: 0 var(--chevronLineWidth) var(--chevronLineWidth) 0;
+  border-bottom-right-radius: 2px;
+  padding: calc(calc(var(--chevronSize) - var(--chevronLineWidth)) / 5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-25%, -50%) rotate(135deg);
 }
-.pagination .pager .chevron_icon.right:after {
-  left: -6px;
-  transform: rotate(225deg);
+.pagination .pager .icon_chevron.right::after {
+  transform: translate(-75%, -50%) rotate(-45deg);
+}
+.pagination .pager .disabled .icon_chevron::after {
+  border-color: #ccc;
 }
 
 .pagination .pager .disabled {
@@ -385,5 +405,26 @@ export default Vue.extend({
 .pagination .jumper .input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+@media screen and (max-width: 1024px) {
+  .pagination {
+    flex-wrap: wrap;
+  }
+  .pagination .total,
+  .pagination .select_size,
+  .pagination .jumper {
+    display: none;
+  }
+
+  .pagination .pager .icon_chevron {
+    --chevronSize: 12px;
+  }
+
+  .pagination .pager li {
+    font-size: 12px;
+    min-width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
 }
 </style>

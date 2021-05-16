@@ -1,5 +1,5 @@
-import Message from "./message.js";
 import BaseButton from "../BaseButton/BaseButton.vue";
+import Message from "./message.js";
 
 export default {
   title: "Howie/Message",
@@ -44,7 +44,7 @@ export default {
   },
 };
 
-const TemplateCustom = (args, { argTypes }) => ({
+const TemplateCustom = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseButton },
   template: `
@@ -70,7 +70,7 @@ const TemplateCustom = (args, { argTypes }) => ({
     },
   },
 });
-const TemplateNoCloseBtn = (args, { argTypes }) => ({
+const TemplateNoCloseBtn = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { BaseButton },
   template: `

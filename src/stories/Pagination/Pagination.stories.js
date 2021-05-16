@@ -27,6 +27,21 @@ export default {
     disabled: {
       description: "Define status whether disabled or not.",
     },
+    start: {
+      description: "API start page.",
+    },
+    page: {
+      description: "Current page sync to father elemnt.",
+      table: {
+        category: "Not operate manually",
+      },
+    },
+    size: {
+      description: "Current size sync to father elemnt.",
+      table: {
+        category: "Not operate manually",
+      },
+    },
     changePage: {
       description: "Change page event.",
       table: {
@@ -48,11 +63,19 @@ export default {
   },
 };
 
-const TemplateCustom = (args, { argTypes }) => ({
+const TemplateCustom = (_args, { argTypes }) => ({
   props: Object.keys(argTypes),
   components: { Pagination },
   template:
-    '<pagination v-bind="$props" @changeSize="changeSize" @changePage="changePage" />',
+    '<pagination v-bind="$props" :page.sync="page" :size.sync="size" @changeSize="sizeHandle" @changePage="pageHandle" />',
+  methods: {
+    pageHandle(page) {
+      this.page = page;
+    },
+    sizeHandle(size) {
+      this.size = size;
+    },
+  },
 });
 
 export const Custom = TemplateCustom.bind({});

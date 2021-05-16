@@ -1,5 +1,5 @@
 <template>
-  <div :style="style" class="icon_x"></div>
+  <div :style="style" :class="['icon_x', { pointer }]"></div>
 </template>
 
 <script>
@@ -22,6 +22,10 @@ export default Vue.extend({
     size: {
       type: Number,
       default: 24,
+    },
+    pointer: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -48,8 +52,8 @@ export default Vue.extend({
   border-radius: 50%;
   background-color: var(--xBgColor);
 }
-.icon_x:after,
-.icon_x:before {
+.icon_x::after,
+.icon_x::before {
   content: "";
   box-sizing: border-box;
   position: absolute;
@@ -61,7 +65,15 @@ export default Vue.extend({
   top: calc(var(--xSize) / 2 - 3px);
   left: 3px;
 }
-.icon_x:after {
+.icon_x::after {
   transform: rotate(-45deg);
+}
+.icon_x.pointer {
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.7;
+}
+.icon_x.pointer:hover {
+  opacity: 1;
 }
 </style>

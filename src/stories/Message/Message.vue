@@ -1,6 +1,7 @@
 <template>
   <transition name="message_fade" @after-leave="handleAfterLeave">
     <div
+      v-show="visible"
       :class="[
         'base_message',
         `base_message_${type}`,
@@ -8,10 +9,9 @@
         customClass,
       ]"
       :style="positionStyle"
-      v-show="visible"
+      role="alert"
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
-      role="alert"
     >
       <IconCheck
         v-if="type === 'success'"
@@ -45,9 +45,9 @@
         {{ message }}
       </p>
       <IconX
+        v-if="showClose"
         class="message_close_btn"
         main-color="#D1D5DB"
-        v-if="showClose"
         @click.native="close"
       />
     </div>
@@ -93,6 +93,9 @@ export default Vue.extend({
       }
     },
   },
+  mounted() {
+    this.startTimer();
+  },
 
   methods: {
     handleAfterLeave() {
@@ -112,7 +115,6 @@ export default Vue.extend({
     },
 
     startTimer() {
-      console.log(333);
       if (this.duration > 0) {
         this.timer = setTimeout(() => {
           if (!this.closed) {
@@ -122,16 +124,10 @@ export default Vue.extend({
       }
     },
   },
-  mounted() {
-    this.startTimer();
-  },
 });
 </script>
 
 <style lang="scss" scoped>
-.base_message_content:focus {
-  outline-width: 0;
-}
 .base_message {
   min-width: 320px;
   -webkit-box-sizing: border-box;
@@ -143,6 +139,7 @@ export default Vue.extend({
   position: fixed;
   left: 50%;
   top: 24px;
+  z-index: 9999;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   background-color: #ecfdf5;
@@ -159,47 +156,55 @@ export default Vue.extend({
   -ms-flex-align: center;
   align-items: center;
 }
+
+.base_message_content {
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.2;
+}
+.base_message_content:focus {
+  outline-width: 0;
+}
+.base_message_success .base_message_content {
+  color: #10b981;
+}
+.base_message_error .base_message_content {
+  color: #ef4444;
+}
+.base_message_warning .base_message_content {
+  color: #d97706;
+}
+.base_message_info .base_message_content {
+  color: #6b7280;
+}
 .base_message.closable .base_message_content {
   padding-right: 16px;
 }
 .base_message p {
   margin: 0;
 }
-.base_message_success .base_message_content {
-  color: #10b981;
-}
+
 .base_message_error {
   background-color: #fef0f0;
   border-color: #fee2e2;
 }
-.base_message_error .base_message_content {
-  color: #ef4444;
-}
+
 .base_message_warning {
   background-color: #fef3c7;
   border-color: #fde68a;
 }
-.base_message_warning .base_message_content {
-  color: #d97706;
-}
+
 .base_message_info {
   background-color: #f3f4f6;
   border-color: #e5e7eb;
 }
-.base_message_info .base_message_content {
-  color: #6b7280;
-}
+
 .base_message_icon {
   line-height: 14px;
   margin-right: 8px;
 }
 .base_message_icon img {
   vertical-align: top;
-}
-.base_message_content {
-  padding: 0;
-  font-size: 14px;
-  line-height: 1.2;
 }
 
 .icon_tips {

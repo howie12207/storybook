@@ -6,17 +6,17 @@
     @blur="blurHandle"
   >
     <div class="select_header" @click="openHandle">
-      {{ syncValue || placeholder }}
-      <IconChevron direction="bottom" :size="16" />
+      {{ `${syncValue} 條 / 頁` || placeholder }}
+      <IconChevron direction="bottom" :size="12" />
     </div>
     <div ref="base_select_options" class="options">
       <div
-        :class="['option', { selected: option.value === syncValue }]"
         v-for="(option, i) of optionsFilter"
         :key="i"
+        :class="['option', { selected: option.value === syncValue }]"
         @click="selectHandle(option)"
       >
-        {{ option.label }}
+        {{ option.label }}條 / 頁
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@ export default Vue.extend({
   components: { IconChevron },
   props: {
     value: {
-      type: String,
+      type: Number,
       required: true,
     },
     options: {
@@ -76,7 +76,7 @@ export default Vue.extend({
           return typeof item === "object";
         })
       )
-        return this.options;
+        return this.option;
       return this.options.map((item) => {
         return { label: item, value: item };
       });
@@ -86,7 +86,7 @@ export default Vue.extend({
         return this.value;
       },
       set(option) {
-        this.$emit("input", option);
+        this.$emit("input", Number(option));
       },
     },
     style() {
@@ -104,11 +104,13 @@ export default Vue.extend({
       this.open = false;
     },
     openHandle() {
-      // const totalHeight = document.body.offsetHeight;
-      // const selectOffsetTop = this.$refs.base_select.offsetTop;
-      // const optionsHeight = this.$refs.base_select_options.offsetHeight;
-      // if (selectOffsetTop + optionsHeight + 40 > totalHeight)
-      //   this.$refs.base_select_options.style.top = `-${optionsHeight}px`;
+      if (this.open) {
+        this.$refs.base_select.style.height = "initial";
+      } else {
+        this.$refs.base_select.style.height = `${
+          this.$refs.base_select_options.offsetHeight + 40
+        }px`;
+      }
       this.open = !this.open;
     },
     selectHandle(option) {
@@ -126,9 +128,10 @@ export default Vue.extend({
 }
 .base_select {
   position: relative;
-  height: 40px;
-  line-height: 40px;
+  height: 28px;
+  line-height: 28px;
   width: var(--selectWidth);
+  font-size: 12px;
 }
 
 .base_select .select_header {
