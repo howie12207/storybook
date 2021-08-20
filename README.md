@@ -1,24 +1,16 @@
-# story
+# Storybook
 
-## Project setup
-```
-npm install
-```
+### 概述
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+**使用 Storybook 建專案，搭配 Vue 做出展示，封裝出常會使用到的組件**
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 功能
 
-### Lints and fixes files
-```
-npm run lint
-```
+- 組件封裝
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 技術
+
+- Storybook
+- Vue
+
+[Demo](https://howie12207.github.io/storybook/)
